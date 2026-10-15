@@ -1,0 +1,21 @@
+# Personal learning context stays out of commits
+/devpost/learner-profile.md
+
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Skill pack install copies (skills-lock.json records the source)
+/.agents/
+/agent/
+/.claude/
+
+# Live NYU data cache
+/data/cache/
+
+# OS
+.DS_Store
