@@ -4,6 +4,7 @@
 //   otherwise   -> Takeable
 import { NY_TZ, describeSchedule, fitsWindow, localSchedule } from "./time.js";
 import { readNote } from "./notes.js";
+import { creditReason } from "./schools.js";
 
 export const VERDICTS = {
   takeable: { label: "Takeable", symbol: "✓" },
@@ -11,12 +12,31 @@ export const VERDICTS = {
   no: { label: "Not takeable", symbol: "✕" },
 };
 const LEVEL_ORDER = { fail: 0, check: 1, pass: 2 };
+const KIND_ORDER = { time: 0, credit: 1, credits: 2, restriction: 3, details: 4 };
 
 export function judge(section, situation) {
-  const reasons = [timeReason(section, situation)];
-  reasons.sort((a, b) => LEVEL_ORDER[a.level] - LEVEL_ORDER[b.level]);
+  const reasons = [timeReason(section, situation), creditReason(section, situation.homeSchool), ...noteReasons(section)];
+  if (/independent study/i.test(section.component)) {
+    reasons.push({ kind: "restriction", level: "check", text: "Independent study — you need a faculty sponsor first" });
+  }
+  if (section.credits && section.credits.max === 0) {
+    reasons.push({ kind: "credits", level: "check", text: "0 credits — doesn't count toward your degree" });
+  }
+  if (section.detailsOk === false) {
+    reasons.push({ kind: "details", level: "check", text: "Details unavailable from NYU — open the official listing" });
+  }
+  reasons.sort((a, b) => LEVEL_ORDER[a.level] - LEVEL_ORDER[b.level] || KIND_ORDER[a.kind] - KIND_ORDER[b.kind]);
   const verdict = reasons.some((r) => r.level === "fail") ? "no" : reasons.some((r) => r.level === "check") ? "check" : "takeable";
   return { verdict, reasons };
+}
+
+// Restrictions are quoted from NYU's note, never interpreted.
+function noteReasons(section) {
+  return readNote(section.note).restrictions.map((sentence) => ({
+    kind: "restriction",
+    level: "check",
+    text: `Note: “${sentence}”`,
+  }));
 }
 
 export function timeReason(section, situation) {

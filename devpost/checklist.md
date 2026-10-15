@@ -31,7 +31,7 @@ Build mode: fast
   Learner check: Run `npm start`, open http://localhost:5173, choose Beijing and January 2027, and find TECH-UB 25. Its time should read about 10 pm – 2 am with a red ✕. Switch to London and watch it change.
   Commit: `Load live NYU sections and judge them on the student's clock`
 
-- [ ] **2. Credit and restrictions complete the verdict**
+- [x] **2. Credit and restrictions complete the verdict**
   Becomes usable: Choosing Stern judges credit too.
     - ECON1-UC 301 shows ✕ "No Stern credit for SPS courses".
     - Tisch and Arts & Science courses say they count as approved outside electives.
@@ -138,3 +138,6 @@ Activity mode: not started
 - Credits: no change needed. The slice-1 investigation found NYU's `hours_html` number equals credits for five sampled courses (TECH-UB 25 1.5, MKTG-UB 20 2, ECON1-UC 301 4, CSCI-UA 4 4, THEA-UT 678 4, matched against the NYU Bulletin). All 389 Fall 2026 online and blended sections parsed.
 - Asynchronous detection: no change needed. Across Fall 2026, all 125 sections without meeting times say "asynchronous" (82) or "Does Not Meet" (43); none are ambiguous. Two sections have meeting times plus an asynchronous component, and these are correctly judged on their meetings.
 - Term ids come straight from NYU's dropdown — NYU lists the current term as `9999` ("Fall 2026"), not `1268`; following the dropdown keeps Takeable in step with the official search.
+- Restriction phrases widened to include "restricted", "only" and "prerequisite". Excluded: "open to all" and "first-years and above". Real January notes such as "Pre-requisite: Law, Business, & Society" and "only Drama seniors will have priority" were otherwise missed; `prd.md > Takeability Verdict` updated.
+- Independent-study sections are a Check ("you need a faculty sponsor first"). From Beijing, the only "Takeable" January section was an independent study with an empty note, which overstated what a student can just sign up for.
+- Rows lead with the first reason that isn't a passing time, because the time column already shows it.

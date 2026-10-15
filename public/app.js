@@ -209,7 +209,8 @@ function renderList() {
 }
 
 function rowHtml({ section: s, verdict, reasons }) {
-  const top = reasons[0];
+  // The time column already shows a passing time, so the row leads with the next reason.
+  const top = reasons.find((r) => !(r.kind === "time" && r.level === "pass")) || reasons[0];
   const levelClass = top.level === "pass" ? "" : top.level;
   return `<li class="row" tabindex="0" data-crn="${s.crn}">
     <div class="row-title"><span class="code">${escapeHtml(s.code)}</span><span class="title">${escapeHtml(s.title)}</span></div>

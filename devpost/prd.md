@@ -115,6 +115,8 @@ Each section gets reasons in three areas. The overall verdict is:
 | Note says | Verdict |
 | --- | --- |
 | "open to … only", "students only", "standing or higher", "approval required", "permission", "do not enroll if", "does not count" | Check, with the note quoted. Takeable never guesses the student's class year or major. |
+| "restricted", "only", "prerequisite" (but not "open to all" or "first-years and above") | Check, with the note quoted. |
+| Component is Independent Study | Check: "Independent study — you need a faculty sponsor first" |
 
 - As an away student, I want each section's verdict with its reasons so that I can trust it or check it myself.
   - [ ] Stern, Beijing, January 2027, hours 8:00 am – 11:00 pm: TECH-UB 25 shows ✕ Not takeable, "Meets 10:00 pm – 2:00 am your time".
