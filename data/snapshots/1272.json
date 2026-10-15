@@ -1,0 +1,2266 @@
+{
+ "term": "1272",
+ "source": "live",
+ "fetchedAt": "2026-10-15T23:39:51.074Z",
+ "inPersonHidden": 133,
+ "sections": [
+  {
+   "term": "1272",
+   "crn": "1260",
+   "code": "ANTH1-UC 5003",
+   "section": "200",
+   "title": "Cultural Anthropology",
+   "subject": "ANTH1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "This course is an introduction to the basic concepts, aims, and findings of cultural anthropology. In addition to exploring the concept of culture as a defining characteristic of human experience, the course analyzes the forces that shape and define such human cultural features as family systems and marriage, sex and gender roles, political and economic institutions, social inequalities and ethnic identities, and religious and ritual behavior. Using a variety of ethnographic examples, the course explores the similarities and differences of peoples and cultures around the world.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1310",
+   "code": "BUSN1-UC 172",
+   "section": "200",
+   "title": "Financial Principles: Exploring the Dynamics of Money Management",
+   "subject": "BUSN1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "Students are introduced to the principles and practice of corporate finance. Basic concepts are introduced with emphasis on working knowledge of organizational and financial structures, methods of financing, financial management, and planning. Investments and strategies, risk and growth, and money and banking are topics of study and discussion.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1323",
+   "code": "BUSN1-UC 504",
+   "section": "200",
+   "title": "Business Organization & Management",
+   "subject": "BUSN1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "This course focuses on the processes and problems of competent management. Methods of setting and maintaining high performance standards and high productivity are discussed, along with topics including management structure, planning, organization, staffing, strategy formulation, decision making, leadership, and social responsibility. This survey considers the general tasks associated with competent management and leadership, irrespective of occupational area, industry, or sector of the economy. Methods for establishing and maintaining motivating workplaces and high performance standards are considered.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1311",
+   "code": "BUSN1-UC 943",
+   "section": "200",
+   "title": "Principles of Marketing",
+   "subject": "BUSN1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "In this course marketing as a system of satisfying customer wants is considered from the theoretical as well as from the pragmatic viewpoint. Students study markets, products, and customer motivation, with emphasis on basic marketing research and marketing management. In addition, students analyze the various marketing functions and apply theories and techniques to problems and cases in the context of current marketing practice and market environment.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1304",
+   "code": "DGCM1-UC 2270",
+   "section": "200",
+   "title": "Information Design",
+   "subject": "DGCM1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "This course introduces the students to the fundamentals of information architecture, navigation systems, and user experience. Course topics are addressed through salient examples and the development and assessment of analog and digital projects. Students will be introduced to relevant technologies for the design and development of concept maps, site maps, graphic design, and web production. There are no prerequisites for this course, but students should have a basic grasp of HTML.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1091",
+   "code": "DHYG4-UD 100",
+   "section": "001",
+   "title": "Board Review Boot Camp",
+   "subject": "DHYG4",
+   "suffix": "UD",
+   "college": "UD",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1093",
+   "code": "ECI-UF 101",
+   "section": "001",
+   "title": "Principles of Macroeconomics",
+   "subject": "ECI",
+   "suffix": "UF",
+   "college": "Liberal Studies",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Meets asynchronously. Please note that this course does not count, if completed during J-Term, toward the major or minor in Economics and certain other departments in CAS. Please consult with your department to confirm if there are any restrictions on J-Term courses.",
+   "description": "This course provides an introduction to the fundamental topics in macroeconomics, the analysis of the economy as a whole. After an overview of introductory economic concepts, such as comparative advantage, opportunity costs, and supply and demand, the course focuses on the determinants of aggregate income, employment, and prices. Other topics include the study of long-run economic growth, the business cycle, the financial system, as well as monetary and fiscal policy. *ECI-UF 101 and ECII-UF 102 may meet some of the equivalent course requirements for the College of Arts and Science. Students may take ECI-UF 101 and ECII-UF 102 in any order; neither course is a pre-requisite for the other.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1441",
+   "code": "ECON1-UC 301",
+   "section": "200",
+   "title": "Intro to Macroeconomics",
+   "subject": "ECON1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "Macroeconomics is the study of the operation and performance of the entire economy, both nationally and internationally. In this course, the analytical tools and methodology of macroeconomic analysis since the Great Depression are introduced. Key variables of the economy such as gross domestic product (GDP), unemployment, inflation, interest rate, exchange rate, and international trade balance, as well as Monetary and fiscal policies adopted by the government are discussed in detail.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1438",
+   "code": "ENSTU-UF 101",
+   "section": "001",
+   "title": "Environmental Studies",
+   "subject": "ENSTU",
+   "suffix": "UF",
+   "college": "Liberal Studies",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Meets asynchronously.",
+   "description": "Through the application of fundamental physical and chemical processes, humans attempt to harness the environment for their particular needs. In examining this most significant dimension of modern life, this course emphasizes both its harmful and beneficial aspects and deals with such topics as air and water pollution, transportation, energy resources, and waste control. The political context in which these problems occur is also examined. This course satisfies the requirement in Life Science.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1120",
+   "code": "FMTV-UT 1086",
+   "section": "001",
+   "title": "TV Nation: Inside and Out of The Box",
+   "subject": "FMTV",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 3,
+    "max": 3
+   },
+   "component": "Studio",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 1,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 2,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 3,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 4,
+     "start": "1300",
+     "end": "1650"
+    }
+   ],
+   "meetsText": "MTWRF 1-4:50p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Open to Film & TV Sophomores, Juniors, and Seniors. NYU non-majors may register via Albert. This class will meet on Zoom.",
+   "description": "TV Nation: Inside and Out of the Box gives students the opportunity to experience, first hand, how the world of network television works from two points of view: business and creative. Students will gain an understanding of the business aspect through the vantage point of the network executives and programmers. They will also learn the creative process from development to pitching, from the vantage point of writers and producers in the industry. In TV Nation, students will role play the entire process as the key players who put together a season for broadcast and cable networks. This course allocates as a Craft for Film & TV majors. COURSE SUBJECT TO DEPARTMENTAL FEES.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1121",
+   "code": "FMTV-UT 1093",
+   "section": "001",
+   "title": "Marketing & Distribution for Film",
+   "subject": "FMTV",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 3,
+    "max": 3
+   },
+   "component": "Studio",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 1,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 2,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 3,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 4,
+     "start": "1300",
+     "end": "1650"
+    }
+   ],
+   "meetsText": "MTWRF 1-4:50p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Open to Film & TV Sophomores, Juniors, and Seniors. Non-majors may register via Albert. This class will meet on Zoom.",
+   "description": "This is a specialized course in film marketing and distribution. Students will study two models: studio distribution and independent film distribution. Major studio distribution topics will include devising a release plan and strategy, analyzing grosses and financial elements and creating a advertising and marketing campaign. The independent film portion of the course will cover film festivals, acquisitions, how to create press materials for indie films, understanding distribution deals, shorts and documentaries, and how to work with agents, publicists, attorneys and producer?s reps. This course allocates as a Craft for Film & TV majors. COURSE SUBJECT TO DEPARTMENTAL FEES.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1122",
+   "code": "FMTV-UT 1095",
+   "section": "001",
+   "title": "Producing for Film",
+   "subject": "FMTV",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 3,
+    "max": 3
+   },
+   "component": "Studio",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "0930",
+     "end": "1320"
+    },
+    {
+     "day": 1,
+     "start": "0930",
+     "end": "1320"
+    },
+    {
+     "day": 2,
+     "start": "0930",
+     "end": "1320"
+    },
+    {
+     "day": 3,
+     "start": "0930",
+     "end": "1320"
+    },
+    {
+     "day": 4,
+     "start": "0930",
+     "end": "1320"
+    }
+   ],
+   "meetsText": "MTWRF 9:30a-1:20p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Open to Film & TV Sophomores, Juniors, and Seniors. Non-majors may register via Albert. This class will meet on Zoom.",
+   "description": "An examination of the creative, organizational, and managerial roles of the producer in narrative motion pictures. Topics include how a production company is formed, creating and obtaining properties, financing, budgeting, cost control, distribution. The course gives specific attention to the problems in these areas that will be faced by students as future professional directors, production managers, or writers. This course allocates as a Craft for Film & TV majors. COURSE SUBJECT TO DEPARTMENTAL FEES.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1116",
+   "code": "FMTV-UT 1231",
+   "section": "001",
+   "title": "Traditions in Narrative: Comedy in America",
+   "subject": "FMTV",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Studio",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 1,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 2,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 3,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 4,
+     "start": "1300",
+     "end": "1650"
+    }
+   ],
+   "meetsText": "MTWRF 1-4:50p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Open to all students. This class will meet via Zoom.",
+   "description": "The history of comedy in 20th century America is the history of America itself. Comedians from all walks of life have provided a funhouse mirror as well as a perceptive lens for American society and culture. This course will examine significant periods and players of the 20th century comedic genre and analyze them against their historic context and legacy. Humor will be used as a platform to discuss how comedy was governed by and ultimately responded to the influence of American society. This course will observe how comedians in turn shaped American life, running the gamut from silent movies to Vaudeville; screwball comedies of the 1930s and ‘40s to the Golden Age of Television; from the sitcom to the political comedies of present day. Equally important, this course will analyze the genesis and evolution of the comedic persona in performance: what worked, what did not work, and why. Comprehensive analysis of performances will help this course determine how performers did what they did and why they made the choices they made. This course will assess how the work of the comedian has evolved and grown over the course of a career, what methods have withstood the test of time, and why.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1118",
+   "code": "FMTV-UT 4",
+   "section": "001",
+   "title": "The Language of Film",
+   "subject": "FMTV",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 1,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 2,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 3,
+     "start": "1300",
+     "end": "1650"
+    },
+    {
+     "day": 4,
+     "start": "1300",
+     "end": "1650"
+    }
+   ],
+   "meetsText": "MTWRF 1-4:50p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Open to all students. This course will meet via Zoom.",
+   "description": "Language of Film is an introduction to the craft, history and theory of filmmaking and film-watching. The main challenge facing all filmmakers is to show the story: in other words, to visualize the drama. Over the past century, narrative, experimental and documentary filmmakers have developed a variety of creative strategies and techniques designed to give their audiences compelling, multi-sensorial experiences. The goal of this class is to explore how filmmakers in different historical and cultural settings have contributed to the evolution of film as a powerful, complex and captivating art form.. This course allocates as History & Criticism for Film & TV majors.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1094",
+   "code": "FWS-UF 201",
+   "section": "001",
+   "title": "Internship Seminar",
+   "subject": "FWS",
+   "suffix": "UF",
+   "college": "Liberal Studies",
+   "credits": {
+    "min": 1,
+    "max": 4
+   },
+   "component": "Seminar",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "DEPARTMENTAL APPROVAL REQUIRED. You must consult with your adviser before registering for this course.",
+   "description": "Students in the fieldwork seminar (which requires an associated internship or equivalent) analyze the structure, purpose, and culture of their internship environment in order to develop their ability to test re-formulate abstract concepts in light of actual experience. They may contextualize their internship experience in broader professional, academic, and autobiographical terms while learning to communicate their observations, insights, and reflections as part of a community of learners.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1154",
+   "code": "GAMES-UT 110",
+   "section": "001",
+   "title": "Intro to Game Studies",
+   "subject": "GAMES",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1000",
+     "end": "1245"
+    },
+    {
+     "day": 1,
+     "start": "1000",
+     "end": "1245"
+    },
+    {
+     "day": 2,
+     "start": "1000",
+     "end": "1245"
+    },
+    {
+     "day": 3,
+     "start": "1000",
+     "end": "1245"
+    }
+   ],
+   "meetsText": "MTWR 10a-12:45p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "This class is an overview of the field of games that approaches them from several theoretical and critical perspectives. No special theoretical background or prior training is needed to take the course, but to have had a broad practical experience with and basic knowledge of games is a distinct advantage. Also, an interest in theoretical and analytical issues will help. You are expected to actively participate in the lectures, which are dialogic in form, with ample room for discussion. The course will prepare the student to: Understand and discuss games from a theoretical perspective, as well as the components of a game; Apply new theories and evaluate them critically; Assess and discuss game concepts and the use of games in various contexts; Analyze games, and understand and apply a range of analytical methods.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1145",
+   "code": "GAMES-UT 180",
+   "section": "001",
+   "title": "Intro to Programming for Games",
+   "subject": "GAMES",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1100",
+     "end": "1230"
+    },
+    {
+     "day": 1,
+     "start": "1100",
+     "end": "1230"
+    },
+    {
+     "day": 2,
+     "start": "1100",
+     "end": "1230"
+    },
+    {
+     "day": 3,
+     "start": "1100",
+     "end": "1230"
+    },
+    {
+     "day": 4,
+     "start": "1100",
+     "end": "1230"
+    }
+   ],
+   "meetsText": "MTWRF 11a-12:30p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "Introduction to Programming for Games is a course that introduces students to the concepts, problems, and methods of computer programming, and how these apply to the creation of video games. The course assumes no prior programming knowledge, and is designed to touch on the basic principles of digital design in the form of computer code. There will be an emphasis on programming fundamentals; they will be motivated through the lens of designing and producing video games.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1082",
+   "code": "HUMN1-UC 6401",
+   "section": "200",
+   "title": "Critical Thinking: Big Questions, Many Answers",
+   "subject": "HUMN1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "The Big Questions Seminar welcomes students as members of a community of learners. Through an interdisciplinary study of various disciplines, periods, and cultures, students are asked to engage with important questions that concern all of us as human beings such as, but not limited to: What is the moral difference between humans and animals that justifies us treating animals so differently from humans? What is love? What are equal rights? What is a fact? How do we know that we are living in the real world rather than a computer simulation? This discussion-based seminar based on targeted reading serves as an initiation into life in the academy.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1324",
+   "code": "ISMM1-UC 742",
+   "section": "200",
+   "title": "Business Intelligence",
+   "subject": "ISMM1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Laboratory",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "This course examines how to use existing business data to develop optimum business strategies. Having the information on a DBMS or other machine-readable form and being able to make the data compatible for analytic applications, as well as examples of such analysis will be the focus of this course. Course topics will include: type of data available: transactional, non-operational, metadata; nomenclature of data: classes, clusters, associations, patterns; levels of analysis: decision trees; rule induction, statistical, etc.; technology infrastructure required, presentation of analysis.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1417",
+   "code": "ISMM1-UC 746",
+   "section": "200",
+   "title": "Fundamentals of Computing",
+   "subject": "ISMM1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Laboratory",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "This course introduces the intellectual enterprise of computing through object-oriented design and programming. Topics include: abstraction, algorithms, classes, data structures, encapsulation, generics, inheritance, object identity, polymorphism, and software engineering. Concepts are reinforced through practical exercises inspired by real world domains.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1416",
+   "code": "ISMM1-UC 752",
+   "section": "200",
+   "title": "Systems Analysis",
+   "subject": "ISMM1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "Focuses on the concepts and techniques involved in analyzing, designing, and documenting the requirements for business information systems. Topics include feasibility, justification, specifications, design, implementation, documentation, and performance evaluation.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1183",
+   "code": "LATC-UA 600",
+   "section": "001",
+   "title": "Topics:",
+   "subject": "LATC",
+   "suffix": "UA",
+   "college": "UA",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Seminar",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1100",
+     "end": "1430"
+    },
+    {
+     "day": 1,
+     "start": "1100",
+     "end": "1430"
+    },
+    {
+     "day": 2,
+     "start": "1100",
+     "end": "1430"
+    },
+    {
+     "day": 3,
+     "start": "1100",
+     "end": "1430"
+    }
+   ],
+   "meetsText": "MTWR 11a-2:30p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1205",
+   "code": "MCC-UE 1000",
+   "section": "001",
+   "title": "Ind Study",
+   "subject": "MCC",
+   "suffix": "UE",
+   "college": "UE",
+   "credits": {
+    "min": 1,
+    "max": 6
+   },
+   "component": "Independent Study",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "It should be noted that independent study requires a minimum of 45 hours of work per point. Independent study cannot be applied to the established professional education sequence in teaching curricula. Each departmental program has established its own maximum credit allowance for independent study. This information may be obtained from a student?s department. Prior to registering for independent study, each student should obtain an Independent Study Approval Form from the adviser.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1255",
+   "code": "MKTG-UB 20",
+   "section": "040",
+   "title": "Business of Film",
+   "subject": "MKTG",
+   "suffix": "UB",
+   "college": "Stern School of Business - Undergrad",
+   "credits": {
+    "min": 2,
+    "max": 2
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "0900",
+     "end": "1300"
+    },
+    {
+     "day": 1,
+     "start": "0900",
+     "end": "1300"
+    },
+    {
+     "day": 2,
+     "start": "0900",
+     "end": "1300"
+    },
+    {
+     "day": 3,
+     "start": "0900",
+     "end": "1300"
+    },
+    {
+     "day": 4,
+     "start": "0900",
+     "end": "1300"
+    }
+   ],
+   "meetsText": "MWF 9a-1p; TR 9a-1p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-14",
+   "note": "Sophomore standing or higher. Synchronous attendance is required. Counts toward the BEMT minor.",
+   "description": "This course is designed to provide both business and films students with a systematic overview of the modern day filmed entertainment business. The course covers the traditional “Hollywood System” operating out of Los Angeles and also examine the independent film model.. The course takes a critical look at the financing, production, marketing and distribution of filmed entertainment. Particular attention is focused on the various revenue streams inherent in the exploitation of such product both in the domestic marketplace and in the international arena. The primary objective of the course is to provide students with real life experiences, the practical realities, and a keen understanding of how things actually work in the film business. The course will hopefully provide students with a requisite background and orientation that can lead to an entry level position with a film production or distribution company, an international sales organization, or related support organizations.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1256",
+   "code": "MKTG-UB 40",
+   "section": "040",
+   "title": "Entertainment & Media Industries",
+   "subject": "MKTG",
+   "suffix": "UB",
+   "college": "Stern School of Business - Undergrad",
+   "credits": {
+    "min": 2,
+    "max": 2
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1200",
+     "end": "1600"
+    },
+    {
+     "day": 1,
+     "start": "1200",
+     "end": "1600"
+    },
+    {
+     "day": 2,
+     "start": "1200",
+     "end": "1600"
+    },
+    {
+     "day": 3,
+     "start": "1200",
+     "end": "1600"
+    },
+    {
+     "day": 4,
+     "start": "1200",
+     "end": "1600"
+    }
+   ],
+   "meetsText": "MWF 12-4p; TR 12-4p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-14",
+   "note": "Sophomore standing or higher. Synchronous attendance is required. Counts toward the BEMT minor.",
+   "description": "This course provides students with a framework for understanding the economics and key strategic issues facing organizations in the entertainment industry. It establishes a basis for the formulation of marketing tactics and strategies for firms competing for consumers' discretionary spending. Recent developments in major sectors of the entertainment industry are covered, including movies, television and cable, theatre, and sports. Issues that cut across all types of entertainment industries are examined, including licensing, promotion, and new technologies.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1106",
+   "code": "NCRD-UT 1006",
+   "section": "001",
+   "title": "Producing Essentials",
+   "subject": "NCRD",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "0930",
+     "end": "1340"
+    },
+    {
+     "day": 1,
+     "start": "0930",
+     "end": "1340"
+    },
+    {
+     "day": 2,
+     "start": "0930",
+     "end": "1340"
+    },
+    {
+     "day": 3,
+     "start": "0930",
+     "end": "1340"
+    },
+    {
+     "day": 4,
+     "start": "0930",
+     "end": "1340"
+    }
+   ],
+   "meetsText": "MTWRF 9:30a-1:40p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This class will meet weekly via ZOOM. See NYU Bursar website for charges (https://bit.ly/2pwCiSN). This course, when taken for non-credit, cannot be applied towards a degree. To take this class for credit, register for OART-UT 1006.",
+   "description": "The role of the creative producer in the entertainment industry is integral to bringing a project to fruition. This introductory course covers both the creative and physical production time-line and provides students with an understanding of the producer's role through a semester-long team-based pitch project, which culminates in written and verbal pitch presentations. Students are encouraged to work on a project that best suits their area of interest: feature film, episodic/streaming, theatre, performance, podcasts, VR/AR or individualized multi-media. The course focuses on the dynamics of producing, including producer skill sets, tasks and responsibilities necessary to effectively and efficiently develop a project.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1104",
+   "code": "NCRD-UT 562",
+   "section": "001",
+   "title": "Media Moguls in the 20th Century",
+   "subject": "NCRD",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "0930",
+     "end": "1310"
+    },
+    {
+     "day": 1,
+     "start": "0930",
+     "end": "1310"
+    },
+    {
+     "day": 2,
+     "start": "0930",
+     "end": "1310"
+    },
+    {
+     "day": 3,
+     "start": "0930",
+     "end": "1310"
+    },
+    {
+     "day": 4,
+     "start": "0930",
+     "end": "1310"
+    }
+   ],
+   "meetsText": "MTWRF 9:30a-1:10p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This class will meet weekly via ZOOM. See NYU Bursar website for charges (https://bit.ly/2pwCiSN). This course, when taken for non-credit, cannot be applied towards a degree. To take this class for credit, register for OART-UT 562.",
+   "description": "This course attempts to track the American entertainment industry from its plebian origins through its rise to becoming the predominant mass entertainment culture in the world. Students discover the origins of the production practices that are employed in the entertainment industry today by following the legendary characters, movie moguls, and media titans of the early 20th century and the companies they built. The emphasis is on the way the visionaries of the time impacted seemingly risk-averse systems to invigorate and sometimes completely revolutionize them. These innovative men and women include, but are not limited, to Louis B. Mayer, George Lucas, Maya Deren, Shirley Clark, Nam Jun Paik, Lucille Ball, Russell Simmons, Clive Davis, Julie Taymor, and Steve Jobs.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1110",
+   "code": "NCRD-UT 9035",
+   "section": "001",
+   "title": "Intro to Screenwriting",
+   "subject": "NCRD",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1400",
+     "end": "1710"
+    },
+    {
+     "day": 1,
+     "start": "1400",
+     "end": "1710"
+    },
+    {
+     "day": 2,
+     "start": "1400",
+     "end": "1710"
+    },
+    {
+     "day": 3,
+     "start": "1400",
+     "end": "1710"
+    },
+    {
+     "day": 4,
+     "start": "1400",
+     "end": "1710"
+    }
+   ],
+   "meetsText": "MTWRF 2-5:10p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This course will meet weekly via ZOOM, but there will also be an additional asynchronous component to the class. See NYU Bursar website for charges (https://bit.ly/2pwCiSN). This course, when taken for non-credit, cannot be applied towards a degree. To take this class for credit, register for OART-UT 35.",
+   "description": "The course combines lectures on the basics of feature length screenwriting with the development of the student’s own writing work. Students are required to complete 25-50 pages of a full length screenplay. The students study story structure, conflict, and character, in conjunction with the screening and study of several films and screenplays. The emphasis will be on visual storytelling and developing a strong and distinctive screenwriting voice. All students must come to the first class with two ideas for full-length screenplays.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1102",
+   "code": "OART-UT 1006",
+   "section": "001",
+   "title": "Producing Essentials",
+   "subject": "OART",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "0930",
+     "end": "1340"
+    },
+    {
+     "day": 1,
+     "start": "0930",
+     "end": "1340"
+    },
+    {
+     "day": 2,
+     "start": "0930",
+     "end": "1340"
+    },
+    {
+     "day": 3,
+     "start": "0930",
+     "end": "1340"
+    },
+    {
+     "day": 4,
+     "start": "0930",
+     "end": "1340"
+    }
+   ],
+   "meetsText": "MTWRF 9:30a-1:40p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This section is open to all undergraduate students. This class will meet weekly via ZOOM. See NYU Bursar website for charges (https://bit.ly/2pwCiSN). To take this class for non-credit, register for NCRD-UT 1006.",
+   "description": "The role of the creative producer in the entertainment industry is integral to bringing a project to fruition. This introductory course covers both the creative and physical production time-line and provides students with an understanding of the producer's role through a semester-long team-based pitch project, which culminates in written and verbal pitch presentations. Students are encouraged to work on a project that best suits their area of interest: feature film, episodic/streaming, theatre, performance, podcasts, VR/AR or individualized multi-media. The course focuses on the dynamics of producing, including producer skill sets, tasks and responsibilities necessary to effectively and efficiently develop a project.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1109",
+   "code": "OART-UT 35",
+   "section": "001",
+   "title": "Intro to Screenwriting",
+   "subject": "OART",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1400",
+     "end": "1710"
+    },
+    {
+     "day": 1,
+     "start": "1400",
+     "end": "1710"
+    },
+    {
+     "day": 2,
+     "start": "1400",
+     "end": "1710"
+    },
+    {
+     "day": 3,
+     "start": "1400",
+     "end": "1710"
+    },
+    {
+     "day": 4,
+     "start": "1400",
+     "end": "1710"
+    }
+   ],
+   "meetsText": "MTWRF 2-5:10p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This section is open to all undergraduate students. This course will meet weekly via ZOOM, but there will also be an additional asynchronous component to the class. See NYU Bursar website for charges (https://bit.ly/2pwCiSN). To take this class for non-credit, register for NCRD-UT 9035.",
+   "description": "The course combines lectures on the basics of feature length screenwriting with the development of the student’s own writing work. Students are required to complete 25-50 pages of a full length screenplay. The students study story structure, conflict, and character, in conjunction with the screening and study of several films and screenplays. The emphasis will be on visual storytelling and developing a strong and distinctive screenwriting voice. All students must come to the first class with two ideas for full-length screenplays.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1101",
+   "code": "OART-UT 562",
+   "section": "001",
+   "title": "Media Moguls in the 20th Century",
+   "subject": "OART",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "0930",
+     "end": "1310"
+    },
+    {
+     "day": 1,
+     "start": "0930",
+     "end": "1310"
+    },
+    {
+     "day": 2,
+     "start": "0930",
+     "end": "1310"
+    },
+    {
+     "day": 3,
+     "start": "0930",
+     "end": "1310"
+    },
+    {
+     "day": 4,
+     "start": "0930",
+     "end": "1310"
+    }
+   ],
+   "meetsText": "MTWRF 9:30a-1:10p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This section is open to all undergraduate students. This class will meet weekly via ZOOM. See NYU Bursar website for charges (https://bit.ly/2pwCiSN). To take this class for non-credit, register for NCRD-UT 562.",
+   "description": "This course attempts to track the American entertainment industry from its plebian origins through its rise to becoming the predominant mass entertainment culture in the world. Students discover the origins of the production practices that are employed in the entertainment industry today by following the legendary characters, movie moguls, and media titans of the early 20th century and the companies they built. The emphasis is on the way the visionaries of the time impacted seemingly risk-averse systems to invigorate and sometimes completely revolutionize them. These innovative men and women include, but are not limited, to Louis B. Mayer, George Lucas, Maya Deren, Shirley Clark, Nam Jun Paik, Lucille Ball, Russell Simmons, Clive Davis, Julie Taymor, and Steve Jobs.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1194",
+   "code": "OPSC-UZ 245",
+   "section": "001",
+   "title": "General Physics II Intensives NCC",
+   "subject": "OPSC",
+   "suffix": "UZ",
+   "college": "Non-School Based Programs - UG",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Preparatory",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 1,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 2,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 3,
+     "start": "1015",
+     "end": "1215"
+    }
+   ],
+   "meetsText": "MTWR 10:15a-12:15p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1195",
+   "code": "OPSC-UZ 250",
+   "section": "001",
+   "title": "Data Structures & Algorithms for Engineers NCC",
+   "subject": "OPSC",
+   "suffix": "UZ",
+   "college": "Non-School Based Programs - UG",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Preparatory",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 1,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 2,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 3,
+     "start": "1015",
+     "end": "1215"
+    }
+   ],
+   "meetsText": "MTWR 10:15a-12:15p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1196",
+   "code": "OPSC-UZ 613",
+   "section": "001",
+   "title": "Calculus I NCC",
+   "subject": "OPSC",
+   "suffix": "UZ",
+   "college": "Non-School Based Programs - UG",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Preparatory",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 1,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 2,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 3,
+     "start": "1015",
+     "end": "1215"
+    }
+   ],
+   "meetsText": "MTWR 10:15a-12:15p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1197",
+   "code": "OPSC-UZ 613",
+   "section": "002",
+   "title": "Calculus I NCC",
+   "subject": "OPSC",
+   "suffix": "UZ",
+   "college": "Non-School Based Programs - UG",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Preparatory",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 1,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 2,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 3,
+     "start": "1230",
+     "end": "1430"
+    }
+   ],
+   "meetsText": "MTWR 12:30-2:30p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1198",
+   "code": "OPSC-UZ 658",
+   "section": "001",
+   "title": "Upper Division General Chemistry Non-Credit Course (NCC)",
+   "subject": "OPSC",
+   "suffix": "UZ",
+   "college": "Non-School Based Programs - UG",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Preparatory",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 1,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 2,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 3,
+     "start": "1015",
+     "end": "1215"
+    }
+   ],
+   "meetsText": "MTWR 10:15a-12:15p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1199",
+   "code": "OPSC-UZ 664",
+   "section": "001",
+   "title": "Calculus II NCC",
+   "subject": "OPSC",
+   "suffix": "UZ",
+   "college": "Non-School Based Programs - UG",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Preparatory",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 1,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 2,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 3,
+     "start": "1230",
+     "end": "1430"
+    }
+   ],
+   "meetsText": "MTWR 12:30-2:30p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1201",
+   "code": "OPSC-UZ 672",
+   "section": "001",
+   "title": "General Chemistry II & Lab NCC",
+   "subject": "OPSC",
+   "suffix": "UZ",
+   "college": "Non-School Based Programs - UG",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Preparatory",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 1,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 2,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 3,
+     "start": "1230",
+     "end": "1430"
+    }
+   ],
+   "meetsText": "MTWR 12:30-2:30p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1200",
+   "code": "OPSC-UZ 676",
+   "section": "001",
+   "title": "Principles of Biology II NCC",
+   "subject": "OPSC",
+   "suffix": "UZ",
+   "college": "Non-School Based Programs - UG",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Preparatory",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 1,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 2,
+     "start": "1230",
+     "end": "1430"
+    },
+    {
+     "day": 3,
+     "start": "1230",
+     "end": "1430"
+    }
+   ],
+   "meetsText": "MTWR 12:30-2:30p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1202",
+   "code": "OPSC-UZ 691",
+   "section": "001",
+   "title": "General Chemistry for Engineers NCC",
+   "subject": "OPSC",
+   "suffix": "UZ",
+   "college": "Non-School Based Programs - UG",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Preparatory",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 1,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 2,
+     "start": "1015",
+     "end": "1215"
+    },
+    {
+     "day": 3,
+     "start": "1015",
+     "end": "1215"
+    }
+   ],
+   "meetsText": "MTWR 10:15a-12:15p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1265",
+   "code": "ORBC1-UC 2222",
+   "section": "200",
+   "title": "Leadership in Action: Bridging Concepts and Practical Application",
+   "subject": "ORBC1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "This course combines theory and practice to address contemporary issues and connects them to psychological theories in the field of organizational leadership. It will utilize research, case studies, and real-world situations to illustrate how psychological practices can be used in assessing and improving leadership in organizations. Students will construct a foundation for their personal leadership style with the understanding that it can and should evolve over time.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1081",
+   "code": "ORBC1-UC 2249",
+   "section": "200",
+   "title": "Corporate Culture & Organizational Learning",
+   "subject": "ORBC1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "The course provides a framework for diagnosing and managing organizational cultures, with specific focus on corporate culture and the way values and learning systems are embedded within the organization. Sample topics include understanding \"neurotic\" organizations, cultural dynamics of interpersonal relationships, and assumptions of the learning/knowledge systems that make up corporate cultures.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1171",
+   "code": "PHP-UY 1000",
+   "section": "INET",
+   "title": "Introduction to Prehealth: Healthcare Fields, Requirements, & Resources",
+   "subject": "PHP",
+   "suffix": "UY",
+   "college": "UY",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1000",
+     "end": "1300"
+    },
+    {
+     "day": 1,
+     "start": "1000",
+     "end": "1300"
+    },
+    {
+     "day": 2,
+     "start": "1000",
+     "end": "1300"
+    },
+    {
+     "day": 3,
+     "start": "1000",
+     "end": "1300"
+    }
+   ],
+   "meetsText": "MTWR 10a-1p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "Intended for students who are beginning to explore their interests in moving towards admission into healthcare professional graduate programs, this course will provide information on how they can begin to prepare to become a healthcare professional and applying to required graduate programs. It will go over the different healthcare fields and what they entail, the different careers they can pursue related to these fields, as well as the requirements necessary to apply. The course will also introduce students to resources at NYU, in NYC and the tri-state area, within the US and outside of it related to healthcare issues and topics that will enhance their knowledge, their experience and their future applications. The use of the word \"medicine\" and \"healthcare\" in this course is mostly all-encompassing to include all healthcare professions.",
+   "campus": "Brooklyn Campus",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1088",
+   "code": "POLS1-UC 6604",
+   "section": "200",
+   "title": "The Dynamics of American Democracy",
+   "subject": "POLS1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "This course focuses on the American political system and how it has evolved over time. We will explore various interpretations of the Constitution, the three branches of government (Presidency, Congress, and Supreme Court), anti-war movements and campaigns for economic, civil and women’s rights; environmental initiatives and legislation, the role of political parties and non-governmental organizations, the main factors that shape public opinion and legislation, and new initiatives in civics education.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1261",
+   "code": "PSYC1-UC 6801",
+   "section": "200",
+   "title": "Intro to Psychology",
+   "subject": "PSYC1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "The field of psychology encompasses scientific research on the mind and behavior, as well as applications of psychological research to the promotion of health and well-being and to the diagnosis, assessment, and treatment of psychological disorders. Its topics range from the level of molecules in the brain to the level of individual, cultural, and national differences. This course provides an overview of the theoretical underpinnings of psychology and the results of classic studies and current research in the major areas of this discipline: physiological psychology, learning and motivation, sensation and perception, cognition, emotion, development, social psychology, personality, and abnormal and clinical psychology. Students gain an understanding of major issues addressed in psychological research today, such as the complex interactions between nature and nurture, rationality vs. irrationality in decision making, and the neural bases of human behavior.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1090",
+   "code": "PSYC1-UC 6848",
+   "section": "200",
+   "title": "Developmental Psychology",
+   "subject": "PSYC1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "ONLINE ASYNCHRONOUS COURSE",
+   "description": "This course traces the physical, cognitive, social, and emotional development of children from birth through adolescence. Emphasis is placed on the complex ways in which biological predispositions, the family, and broader cultural and socioeconomic influences interact in shaping the child's character and psychological adjustment at successive stages of development. Students gain familiarity with traditional and contemporary theories of human development and the research methods used by developmental psychologists. Special attention is given to recent findings on the importance of early attachment relationships and to the emerging field of developmental psychopathology. Course readings are supplemented by video, classroom demonstrations, and individual research projects.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1257",
+   "code": "SOIM-UB 12",
+   "section": "040",
+   "title": "Professional Resp. & Leadership",
+   "subject": "SOIM",
+   "suffix": "UB",
+   "college": "Stern School of Business - Undergrad",
+   "credits": {
+    "min": 2,
+    "max": 2
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1200",
+     "end": "1600"
+    },
+    {
+     "day": 1,
+     "start": "1200",
+     "end": "1600"
+    },
+    {
+     "day": 2,
+     "start": "1200",
+     "end": "1600"
+    },
+    {
+     "day": 3,
+     "start": "1200",
+     "end": "1600"
+    },
+    {
+     "day": 4,
+     "start": "1200",
+     "end": "1600"
+    }
+   ],
+   "meetsText": "MWF 12-4p; TR 12-4p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-14",
+   "note": "Open to Stern seniors only. Pre-requisite: Law, Business, & Society (SOIM-UB 6) Synchronous attendance is required.",
+   "description": "Professional Responsibility and Leadership is an interdisciplinary capstone course that builds on prior course work within the Social Impact Core curriculum as well as other course work both within Stern and other NYU colleges. In this discussion seminar, students have the opportunity to pursue the following learning objectives: 1) become more familiar with the variety of ethical dilemmas that can arise in the course of business practice; 2) understand the different values and principles that can inform and guide decisions in such ambiguous situations; and 3) gain experience articulating and defending courses of action that are coherent with their own values. Various activities are designed and facilitated to allow students to engage in reflective dialogue with each other, the overarching themes of which include the relationship between business and society on a global, national and local basis; the foundations of personal and professional business ethics; and the exercise of leadership in organizations.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1175",
+   "code": "SPAN-UA 401",
+   "section": "001",
+   "title": "Topics in Latin American Literature and Culture - in English: Afro-Latin Soundscapes",
+   "subject": "SPAN",
+   "suffix": "UA",
+   "college": "UA",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Seminar",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1100",
+     "end": "1430"
+    },
+    {
+     "day": 1,
+     "start": "1100",
+     "end": "1430"
+    },
+    {
+     "day": 2,
+     "start": "1100",
+     "end": "1430"
+    },
+    {
+     "day": 3,
+     "start": "1100",
+     "end": "1430"
+    }
+   ],
+   "meetsText": "MTWR 11a-2:30p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "",
+   "description": "Recent topics include: New Borderlands in Latin America and Spain, Cultures of the Mexican Revolution, Myth and Literature, Hispanic Cities, Latin American Film, Intimacy and Precarity, Performance and Human Rights in Latin America, Literature and Animality, and Is Spanish One Language?",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1085",
+   "code": "TCSM1-UC 1050",
+   "section": "001",
+   "title": "Foundations in Sport Entrepreneurship",
+   "subject": "TCSM1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 3,
+    "max": 3
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Course available to Sport Management students only. Major Core. Pre-requisite: TCSM1-UC 1000 & 1010. Course does not meet all materials will be provided via Brightspace.",
+   "description": "Entrepreneurialism is a major growth area in the field of sport business as many sport management professionals have decided to start their own businesses. This course is designed to give the undergraduate student both a theoretical and practical exposure to issues related to this endeavor and awareness and understanding of basic business responsibilities of sport business entrepreneurs, which influence the management of sport programs. Special emphasis is placed on discovering and evaluating opportunities, developing appropriate business concepts; determining and acquiring needed resources, and managing the start-up and growth phases of new business creation. The operational requirements of a wide range of sport businesses are considered. Learning will occur through student research, participative learning, and oral presentation of the many components of the course's content.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1084",
+   "code": "TCSM1-UC 1055",
+   "section": "001",
+   "title": "Research Methods",
+   "subject": "TCSM1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 3,
+    "max": 3
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Course is available to Sport Management students only. Major Core course. Pre-Requisite: TCSM1-UC 1000 & 1010 and Statistics. Course does not meet all materials will be provided via Brightspace.",
+   "description": "This course prepares the student to do and to evaluate social science research using a variety of research methods. Basic issues regarding the formulation of research questions, research design, and data collection and analysis are addressed. The course material encompasses both quantitative and qualitative methods in the discussion of the basic components of the research process: conceptualization and measurement, sample selection, and causal modeling. In addition to teaching techniques and conventions of doing research, the course also acquaints the student with critical issues in the philosophy of science, ethical questions, and how to write a research proposal.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1083",
+   "code": "TCSM1-UC 3660",
+   "section": "001",
+   "title": "Sport Marketing",
+   "subject": "TCSM1",
+   "suffix": "UC",
+   "college": "UC",
+   "credits": {
+    "min": 3,
+    "max": 3
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [],
+   "meetsText": "Does Not Meet",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Sport Management Students only. Major core. Pre-requisite: TCSM1-UC 1000 & TCSM1-UC 1010. Course does not meet all materials will be provided via Brightspace.",
+   "description": "Examination of marketing concepts and methods available for sports businesses and sports events marketers. Topics covered include: the societal marketing philosophy; marketing research; market segmentation; and marketing mix strategies related to programming, distribution, pricing and promotion of sports and sporting events.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1258",
+   "code": "TECH-UB 25",
+   "section": "040",
+   "title": "Introduction to Programming for Data Science using Python",
+   "subject": "TECH",
+   "suffix": "UB",
+   "college": "Stern School of Business - Undergrad",
+   "credits": {
+    "min": 1.5,
+    "max": 1.5
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "0900",
+     "end": "1300"
+    },
+    {
+     "day": 1,
+     "start": "0900",
+     "end": "1300"
+    },
+    {
+     "day": 2,
+     "start": "0900",
+     "end": "1300"
+    },
+    {
+     "day": 3,
+     "start": "0900",
+     "end": "1300"
+    },
+    {
+     "day": 4,
+     "start": "0900",
+     "end": "1300"
+    }
+   ],
+   "meetsText": "MWF 9a-1p; TR 9a-1p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-14",
+   "note": "Open to first-years and above. Synchronous attendance is required. Do not enroll if you have already completed TECH-UB 23 (same course material).",
+   "description": "This course is the recommended starting point for undergraduate students who are interested in working in the rapidly growing fields of data science and data analytics or who are interested in acquiring the technical and data analysis skills that are becoming increasingly relevant in other disciplines, such as finance and marketing. It will provide a basic introduction to programming using Python with an emphasis on using Python in the context of various data science applications.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1259",
+   "code": "TECH-UB 26",
+   "section": "040",
+   "title": "Databases for Business Analytics",
+   "subject": "TECH",
+   "suffix": "UB",
+   "college": "Stern School of Business - Undergrad",
+   "credits": {
+    "min": 1.5,
+    "max": 1.5
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1300",
+     "end": "1620"
+    },
+    {
+     "day": 2,
+     "start": "1300",
+     "end": "1620"
+    },
+    {
+     "day": 4,
+     "start": "1300",
+     "end": "1620"
+    }
+   ],
+   "meetsText": "MWF 1-4:20p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Open to first-years and above. Do not enroll if you have already completed TECH-UB 23 (same course material). Synchronous attendance is required.",
+   "description": "Databases are ubiquitous in all businesses and hold significant information about the business. Every data analysis and report typically starts with an SQL query, as SQL is the lingua franca of all database systems. Therefore, SQL is necessary for anyone who needs to analyze data as part of their job. Many tech companies consider the knowledge of SQL a prerequisite for all their analysts and managers. This database class is designed for absolute beginners and teaches students how databases are structured and how to write SQL queries that retrieve data from a database. The class is heavily hands-on, focusing on developing the necessary skills for writing SQL queries. We will cover the following topics: Basics of Entity-Relationship model, and the connection to databases USE, DESCRIBE queries, to understand the structure of a database Selection queries: *, column, column AS, DISTINCT, ORDER BY, LIMIT Filtering data using \"where\": Boolean conditions, IN, BETWEEN, LIKE Join queries: Inner and Outer joins, self-joins Aggregation queries: GROUP BY, SUM, AVG, MAX, MIN, etc. Subqueries Window queries (if time allows) After this course, students will be able to navigate relational databases, issue queries against databases in an organization, and generate data that can be used for analyses and reports.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1420",
+   "code": "THEA-UT 678",
+   "section": "001",
+   "title": "Producing: Artistic Entrepreneurship",
+   "subject": "THEA",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1730",
+     "end": "2115"
+    },
+    {
+     "day": 1,
+     "start": "1730",
+     "end": "2115"
+    },
+    {
+     "day": 2,
+     "start": "1730",
+     "end": "2115"
+    },
+    {
+     "day": 3,
+     "start": "1730",
+     "end": "2115"
+    },
+    {
+     "day": 4,
+     "start": "1730",
+     "end": "2115"
+    }
+   ],
+   "meetsText": "MTWRF 5:30-9:15p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Category: PRAXIS. This course outlines a framework through which to make artistic creation a reality. It focuses on the necessary steps to successfully found a company, enter work in a festival and produce self-created performance in a professional context. Issues explored include articulating a mission, the options for different producing models, choosing collaborators, developing a strategic plan, basic fundraising, marketing and managing the legal, financial and regulatory issues essential for start up enterprises in a theatrical environment. This section is open to all students during J-Term, though priority will be given to Tisch Drama students (especially seniors). From Tuesday, October 13 through Sunday, October 18, only Drama seniors will have priority to enroll in both classes. From Monday, October 19 through Sunday, October 25, only Drama seniors and juniors will have priority to enroll in both classes. On Monday, October 26, registration will be available to all students throughout NYU.",
+   "description": "This course outlines a framework through which to make artistic creation a reality. It focuses on the necessary steps to successfully found a company, enter work in a festival and produce self-created performance in a professional context. Issues explored include articulating a mission, the options for different producing models, choosing collaborators, developing a strategic plan, basic fund raising, marketing and managing the legal, financial and regulatory issues essential for start up enterprises in a theatrical environment. (Theatre Studies B)",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1419",
+   "code": "THEA-UT 685",
+   "section": "001",
+   "title": "Theatre Management:: Leading and Managing Theatre in a Global Context",
+   "subject": "THEA",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 4,
+    "max": 4
+   },
+   "component": "Lecture",
+   "mode": "online",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1330",
+     "end": "1715"
+    },
+    {
+     "day": 1,
+     "start": "1330",
+     "end": "1715"
+    },
+    {
+     "day": 2,
+     "start": "1330",
+     "end": "1715"
+    },
+    {
+     "day": 3,
+     "start": "1330",
+     "end": "1715"
+    },
+    {
+     "day": 4,
+     "start": "1330",
+     "end": "1715"
+    }
+   ],
+   "meetsText": "MTWRF 1:30-5:15p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "Category: GEOGRAPHIES. Leading and Managing Theatre in a Global Context. This course explores central themes and challenges in the leadership and management of theatre organizations in the 20th and 21st century from a global perspective. The course places a special emphasis on understanding the shifts and changes that are currently transforming the field and redefining success and innovation within these spaces. Students will address issues of leadership and service in producing and managing theatre and identify the skills and attributes required to facilitate the ongoing vitality of theatre making. The course will feature prominent guest lecturers who helm consequential and path-finding companies across the world. Projects will include primary research and presentations based on the examination of global practice models. This course also counts toward the BEMT & Producing minors and the BFA/MA Performing Arts Administration Major. This section is open to all students during J-Term, though priority will be given to Tisch Drama students (especially seniors). From Tuesday, October 13 through Sunday, October 18, only Drama seniors will have priority to enroll in both classes. From Monday, October 19 through Sunday, October 25, only Drama seniors and juniors will have priority to enroll in both classes. On Monday, October 26, registration will be available to all students throughout NYU.",
+   "description": "Leading and Managing Theatre in a Global Context. This course explores central themes and challenges in the leadership and management of theatre organizations in the 20th and 21st century from a global perspective. The course places a special emphasis on understanding the shifts and changes that are currently transforming the field. Students will address issues of leadership and service in producing and managing theatre and identify the skills and attributes required to facilitate the ongoing vitality of theatre making. The course will feature prominent guest lecturers who helm consequential and path-finding companies here in New York city. Projects will include primary research and presentations based on the examination of global practice models.",
+   "campus": "Washington Square",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1156",
+   "code": "NCRD-UT 8520",
+   "section": "001",
+   "title": "Digital Audio Workstations: ProTools",
+   "subject": "NCRD",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Studio",
+   "mode": "blended",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1500",
+     "end": "1730"
+    },
+    {
+     "day": 1,
+     "start": "1500",
+     "end": "1730"
+    },
+    {
+     "day": 2,
+     "start": "1500",
+     "end": "1730"
+    },
+    {
+     "day": 3,
+     "start": "1500",
+     "end": "1730"
+    },
+    {
+     "day": 4,
+     "start": "1500",
+     "end": "1730"
+    }
+   ],
+   "meetsText": "MTWRF 3-5:30p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This course is open to non-majors and visiting students. There are no pre-requisites for this course. Students may join this course in-person or remotely. There is a lab fee for this course. For more information on tuition and financial aid for visiting students for the January term: https://www.nyu.edu/admissions/visiting-students/academics/january.html",
+   "description": "During this course, students will acquire an in-depth, theoretical and practical knowledge of Digital Audio Workstations using the industry standard Pro Tools software through a weekly, lab-based workshop. Each class will be a combination of lecture and immediate application. An emphasis will be placed on getting to know Pro Tools, getting inside Pro Tools, creating sessions, working with media in sessions, audio recording, audio editing, file management techniques, MIDI recording, editing techniques, mixing techniques, backups and stereo mix-down.",
+   "campus": "Brooklyn Campus",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1155",
+   "code": "NCRD-UT 8569",
+   "section": "001",
+   "title": "The Virtual Producer: Beats & Beatmaking",
+   "subject": "NCRD",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 0,
+    "max": 0
+   },
+   "component": "Studio",
+   "mode": "blended",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1030",
+     "end": "1345"
+    },
+    {
+     "day": 3,
+     "start": "1030",
+     "end": "1345"
+    },
+    {
+     "day": 4,
+     "start": "1030",
+     "end": "1345"
+    }
+   ],
+   "meetsText": "MRF 10:30a-1:45p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This course is open to non-majors and visiting students. There are no pre-requisites for this course, but knowledge of a DAW would be helpful. Students may join this course in-person or remotely. There is a lab fee for this course. For more information on tuition and financial aid for visiting students for the January term: https://www.nyu.edu/admissions/visiting-students/academics/january.html",
+   "description": "This course will cover various professional Music Production Techniques & Strategies such as: Sampling (& Sample Chopping), Drum Programming / Drum Design, Synthesis & Sound Design, Music Theory (in the context of Music Production), MIDI Editing, as well as numerous Mixing Techniques. Over the course of the class, through the utilization and knowledge of these various skills, students will learn how to create Original Music Compositions & Productions. The primary DAW platform for the course is ProTools. While a Beatmaker / Composer / Producer must be well versed in the application of various software and hardware tools, as well as the many Production skills & techniques, he or she must also have artistic vision and creative efficacy. So while the course is about Music / Beat Construction and the tools involved, there will also be a strong emphasis on innovative envision, inventive mobility, and how to think / strategize like a Music Producer.",
+   "campus": "Brooklyn Campus",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1138",
+   "code": "REMU-UT 1016",
+   "section": "001",
+   "title": "The Virtual Producer: Beats & Beatmaking",
+   "subject": "REMU",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 2,
+    "max": 2
+   },
+   "component": "Studio",
+   "mode": "blended",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1030",
+     "end": "1345"
+    },
+    {
+     "day": 3,
+     "start": "1030",
+     "end": "1345"
+    },
+    {
+     "day": 4,
+     "start": "1030",
+     "end": "1345"
+    }
+   ],
+   "meetsText": "MRF 10:30a-1:45p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This course is open to non-majors and visiting students. There are no pre-requisites for this course, but knowledge of a DAW would be helpful. Students may join this course in person or remotely. There is a lab fee for this course. For more information on tuition and financial aid for visiting students for the January term: https://www.nyu.edu/admissions/visiting-students/academics/january.html",
+   "description": "This course will cover various professional Music Production Techniques & Strategies such as: Sampling (& Sample Chopping), Drum Programming / Drum Design, Synthesis & Sound Design, Music Theory (in the context of Music Production), MIDI Editing, as well as numerous Mixing Techniques. Over the course of the class, through the utilization and knowledge of these various skills, students will learn how to create Original Music Compositions & Productions. The primary DAW platform for the course is Ableton. While a Beatmaker / Composer / Producer must be well versed in the application of various software and hardware tools, as well as the many Production skills & techniques, they must also have artistic vision and creative efficacy. So while the course is about Music / Beat Construction and the tools involved, there will also be a strong emphasis on innovative envision, inventive mobility, and how to think / strategize like a Music Producer.",
+   "campus": "Brooklyn Campus",
+   "detailsOk": true
+  },
+  {
+   "term": "1272",
+   "crn": "1134",
+   "code": "REMU-UT 1020",
+   "section": "001",
+   "title": "Digital Audio Workstations: ProTools",
+   "subject": "REMU",
+   "suffix": "UT",
+   "college": "UT",
+   "credits": {
+    "min": 2,
+    "max": 2
+   },
+   "component": "Studio",
+   "mode": "blended",
+   "meetings": [
+    {
+     "day": 0,
+     "start": "1500",
+     "end": "1730"
+    },
+    {
+     "day": 1,
+     "start": "1500",
+     "end": "1730"
+    },
+    {
+     "day": 2,
+     "start": "1500",
+     "end": "1730"
+    },
+    {
+     "day": 3,
+     "start": "1500",
+     "end": "1730"
+    },
+    {
+     "day": 4,
+     "start": "1500",
+     "end": "1730"
+    }
+   ],
+   "meetsText": "MTWRF 3-5:30p",
+   "startDate": "2027-01-04",
+   "endDate": "2027-01-15",
+   "note": "This course is open to non-majors and visiting students. There are no pre-requisites for this course. Students may join this course in-person or remotely. There is a lab fee for this course. For more information on tuition and financial aid for visiting students for the January term: https://www.nyu.edu/admissions/visiting-students/academics/january.html",
+   "description": "During this course, students will acquire an in-depth, theoretical and practical knowledge of Digital Audio Workstations using the industry standard Pro Tools software through a weekly, lab-based workshop. Each class will be a combination of lecture and immediate application. An emphasis will be placed on getting to know Pro Tools, getting inside Pro Tools, creating sessions, working with media in sessions, audio recording, audio editing, file management techniques, MIDI recording, editing techniques, mixing techniques, backups and stereo mix-down.",
+   "campus": "Brooklyn Campus",
+   "detailsOk": true
+  }
+ ],
+ "termName": "January 2027"
+}

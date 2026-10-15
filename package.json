@@ -1,0 +1,16 @@
+{
+  "name": "takeable",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Which NYU courses can you actually take from where you'll be? Verdicts on your clock, for credit at your school, with reasons.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test \"tests/*.test.mjs\"",
+    "snapshot": "node scripts/snapshot.mjs"
+  }
+}
