@@ -70,7 +70,7 @@ PRD ref: `prd.md > The Core Journey`.
   - star two sections and copy their class numbers
 - **Submission:** needs a short demo video and a public GitHub repository. Deployment is optional and not planned. If chosen later, any Node host works, since the server has no dependencies.
 - **Public repository:** https://github.com/yy5652-hash/takeable (public, MIT license detected by GitHub; checked without signing in on 2026-10-16).
-- **Demo video:** not recorded yet.
+- **Demo video:** final cut v1 approved by the learner on 2026-10-16. It is 2:00.6, 1080p, with captions in an .srt, and is not uploaded yet. It is built from real recordings of this app. The production files are outside the repository, in `takeable-film/`.
 
 ## Look and Feel
 Carries forward `prd.md > Look and Feel` (revised in the final review).
