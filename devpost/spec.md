@@ -71,32 +71,35 @@ PRD ref: `prd.md > The Core Journey`.
 - **Submission:** needs a short demo video and a public GitHub repository. Deployment is optional and not planned. If chosen later, any Node host works, since the server has no dependencies.
 
 ## Look and Feel
-Carries forward `prd.md > Look and Feel` and `scope.md > Inspiration & Identity`.
+Carries forward `prd.md > Look and Feel` (revised in the final review).
 
-**Palette:** CSS custom properties on `:root`, with a dark set under `prefers-color-scheme: dark`.
+**Palette:** CSS custom properties on `:root` in `public/styles.css`, with a dark set under `prefers-color-scheme: dark`.
 
-| Token | Light | Dark |
-| --- | --- | --- |
-| background | warm off-white `#f7f5f0` | `#14161a` |
-| surface | `#ffffff` | `#1d2026` |
-| ink | `#1b1d21` | `#eceae5` |
-| muted | `#6b6f76` | `#9aa0a8` |
-| accent (teal) | `#0f6e6e` | `#4fb3b3` |
-| Takeable | `#1f7a3d` on `#e3f3e8` | |
-| Check | `#8a5a00` on `#fbefd4` | |
-| Not takeable | `#a3262a` on `#f8e1e1` | |
+| Token | Light |
+| --- | --- |
+| board | navy `#0e1726` → `#16223a` gradient |
+| board ink | `#f3efe6` |
+| board accent | amber `#f5b544` |
+| page | `#f3f0e9` |
+| surface | `#ffffff` |
+| ink | `#141821` |
+| Takeable | `#13703d` on `#dcf3e5`, solid `#22a05a` |
+| Check | `#8f5d00` on `#fcefd2`, solid `#e3a21a` |
+| Not takeable | `#b0232f` on `#fbe3e5`, solid `#e0484f` |
 
-Dark mode uses the same three hues at higher lightness.
+**Type:** Google Fonts with system fallbacks.
+- Space Grotesk: headline, group titles, panel titles
+- Inter: text
+- JetBrains Mono: course codes, times, counts, clocks
 
-**Type:**
-- Text: system sans (`-apple-system, "Segoe UI", Roboto, sans-serif`).
-- Course codes: `ui-monospace, "SF Mono", Menlo, monospace`.
-- Times and credits: `font-variant-numeric: tabular-nums`.
-- Verdict chips: 13px semibold, uppercase-free, with the symbol first (✓ ? ✕).
+**24-hour bar (`dialHtml` in `public/app.js`):**
+- A 0–24 h track on the student's clock with night (0–6, 22–24) shaded.
+- The class-hours window is a dashed band.
+- Each distinct meeting range is a block, coloured with `fitsWindow`. A block that crosses midnight is drawn in two parts.
+- Asynchronous sections get a striped full-width line.
+- The detail panel repeats the bar for Mon–Sun (`weekHtml`).
 
-**Density:** a comfortable list, about 64px rows with two lines. The verdict chip is on the right and the reason sits under the title. Generous whitespace in the situation bar.
-
-**Copy:** plain sentences about *your* time: "Meets 2:00 – 5:50 am your time".
+**Layout:** board header, then a two-column page (cards on the left, shortlist or detail panel on the right, sticky). Below 900px the side becomes a bottom sheet.
 
 **No NYU logo or violet.** The footer credits the data source.
 

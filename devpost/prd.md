@@ -53,15 +53,26 @@ One page, no navigation:
 - **Detail panel:** slides over the right column. Esc or a close button returns to the shortlist.
 
 ## Look and Feel
-- **Departure-board clarity.** Verdict chips are the loudest element, and each pairs a symbol with a word so colour is never the only signal:
-  - ✓ Takeable: green
-  - ? Check: amber
-  - ✕ Not takeable: red
-- **Calm and trustworthy:** warm off-white background, near-black ink, one deep teal accent for actions. A dark theme follows the system setting.
-- **Typography:** a clean system sans-serif for text. Times and credits use tabular figures so columns line up; codes like `TECH-UB 25` are in a monospace face.
-- **Times read as a conversion:** "10:00 pm – 2:00 am Beijing", then "9:00 am – 1:00 pm New York" in small grey text.
-- **Not NYU-branded:** no logo, no violet theme. The footer says the data comes from NYU's public class search, with a link and the time it was fetched.
-- **Copy tone:** plain and direct. "Meets 2:00 – 5:50 am your time", not "Scheduling conflict detected".
+Revised in the final review after the learner judged the first version "too ugly".
+- **Departure board.** A dark navy header (the "board") holds:
+  - the headline "Online doesn't mean you can take it."
+  - the situation sentence with amber, underlined choices
+  - live clocks for New York and the student's city, with a moon after 10 pm
+  - three large verdict count tiles that filter the list when clicked
+- **A 24-hour bar on every course card**, on the student's clock:
+  - night hours shaded
+  - the student's class hours as a dashed green band
+  - the class itself as a green block when it fits, red when it doesn't
+  - asynchronous sections as a striped "anytime" line
+
+  Seeing a red block at 2 am is the kernel at a glance.
+- **Verdict colour plus symbol and word**, never colour alone. Takeable is ✓ green, Check is ? amber, Not takeable is ✕ red. Each card also carries a coloured edge stripe.
+- **Detail panel** shows a seven-day chart of the student's week, then the exact times in both cities.
+- **Shortlist styled as a boarding pass:** navy header, perforated divider, total credits in large figures.
+- **Type:** Space Grotesk for headlines, Inter for text, JetBrains Mono for codes, times and counts. Falls back to system fonts offline.
+- **Light page under a dark board;** dark mode follows the system setting.
+- **Not NYU-branded:** no logo, no violet. The footer credits NYU's public class search with the fetch time.
+- **Copy tone:** plain and direct. "Outside your class hours (8:00 am – 11:00 pm)", "Meets 2:00 – 5:50 am your time".
 
 ## Features and Behavior
 

@@ -3,19 +3,19 @@
 
 const BY_SUFFIX = {
   UB: { key: "stern", name: "Stern" },
-  UA: { key: "cas", name: "Arts & Science" },
+  UA: { key: "cas", name: "Arts & Science", short: "CAS" },
   UE: { key: "steinhardt", name: "Steinhardt" },
   UT: { key: "tisch", name: "Tisch" },
   UG: { key: "gallatin", name: "Gallatin" },
   US: { key: "silver", name: "Silver" },
   UY: { key: "tandon", name: "Tandon" },
-  UC: { key: "sps", name: "School of Professional Studies" },
+  UC: { key: "sps", name: "School of Professional Studies", short: "SPS" },
   UF: { key: "liberal-studies", name: "Liberal Studies" },
   UH: { key: "abu-dhabi", name: "NYU Abu Dhabi" },
   SHU: { key: "shanghai", name: "NYU Shanghai" },
   UN: { key: "nursing", name: "Nursing" },
   UD: { key: "dentistry", name: "Dentistry" },
-  UZ: { key: "non-school", name: "Non-School Based Programs" },
+  UZ: { key: "non-school", name: "Non-School Based Programs", short: "Non-school programs" },
 };
 
 export function schoolOf(section) {

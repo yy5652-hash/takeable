@@ -120,6 +120,16 @@ Build mode: fast
 
 ## Final Review
 
+Learner feedback from the final hands-on look: "太丑了优化ui" (too ugly — improve the UI). Visual direction was delegated to the agent in planning, so the agent proposes a redesign for the learner to judge.
+
+- [ ] Redesign the interface. Planned changes:
+  - a dark departure-board header with live New York and local clocks
+  - verdict count tiles that filter the list
+  - course cards with a 24-hour bar on the student's clock showing their class hours and the class block
+  - a week chart in the detail panel
+  - distinctive type
+
+  Implemented and checked in the browser at 1440px light and 390px dark, with no console errors; waiting for the learner to look again.
 - [ ] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
@@ -144,3 +154,4 @@ Activity mode: not started
 - Rows lead with the first reason that isn't a passing time, because the time column already shows it.
 - The "nothing takeable" message measures start times around the middle of the student's class hours. Sorting raw clock times split overnight classes at midnight and produced "most start between 1:30 am and 10:30 pm"; it now reads "between 11:00 pm and 2:00 am in Beijing".
 - Dates on the page are always formatted in US English. The browser's own locale had put Chinese dates into the English interface.
+- Visual design reworked after the final review ("太丑了优化ui"), and `prd.md > Look and Feel` and `spec.md > Look and Feel` rewritten to match. Behaviour and verdicts are unchanged and the 26 tests still pass. Changes: departure-board header, live clocks, filtering count tiles, 24-hour bars on cards, week chart in the detail panel, boarding-pass shortlist, and short school names on cards.

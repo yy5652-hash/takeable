@@ -5,42 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Takeable</title>
     <meta name="description" content="Which NYU courses can you actually take from where you'll be? Verdicts on your clock, for credit at your school, with reasons." />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f6e6e'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e1726'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' stroke='%23f5b544' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;700&display=swap" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="masthead">
-      <div class="brand">
-        <span class="logo" aria-hidden="true">✓</span>
-        <span class="name">Takeable</span>
-      </div>
-      <p class="tagline">Courses you can actually take, from wherever you'll be.</p>
-    </header>
+    <header class="board">
+      <div class="board-inner">
+        <div class="board-top">
+          <div class="brand">
+            <span class="logo" aria-hidden="true">✓</span>
+            <span class="name">Takeable</span>
+            <span class="for">for NYU</span>
+          </div>
+          <div class="clocks" id="clocks" aria-label="Current time"></div>
+        </div>
 
-    <form class="situation" id="situation" aria-label="Your situation">
-      <span>I'm</span>
-      <label class="field"><span class="sr-only">Home school</span><select id="homeSchool"></select></label>
-      <span>and I'll be in</span>
-      <label class="field"><span class="sr-only">Where you'll be</span><select id="city"></select></label>
-      <span class="guess" id="guess" hidden>guessed from your computer</span>
-      <span>for</span>
-      <label class="field"><span class="sr-only">Term</span><select id="term"></select></label>
-      <span>— I can be in class from</span>
-      <label class="field"><span class="sr-only">Earliest start</span><select id="earliest"></select></label>
-      <span>to</span>
-      <label class="field"><span class="sr-only">Latest finish</span><select id="latest"></select></label>
-      <span>my time.</span>
-    </form>
+        <h1>Online doesn't mean you can take it.</h1>
+
+        <form class="situation" id="situation" aria-label="Your situation">
+          <span>I'm</span>
+          <label class="field"><span class="sr-only">Home school</span><select id="homeSchool"></select></label>
+          <span>and I'll be in</span>
+          <label class="field"><span class="sr-only">Where you'll be</span><select id="city"></select></label>
+          <span class="guess" id="guess" hidden>guessed from your computer</span>
+          <span>for</span>
+          <label class="field"><span class="sr-only">Term</span><select id="term"></select></label>
+          <span class="break" aria-hidden="true"></span>
+          <span>I can be in class from</span>
+          <label class="field"><span class="sr-only">Earliest start</span><select id="earliest"></select></label>
+          <span>to</span>
+          <label class="field"><span class="sr-only">Latest finish</span><select id="latest"></select></label>
+          <span>my time.</span>
+        </form>
+
+        <section class="scoreboard" id="summary" aria-live="polite"></section>
+      </div>
+    </header>
 
     <div class="banner" id="banner" role="status" hidden></div>
 
-    <section class="summary" id="summary" aria-live="polite"></section>
-
     <main class="layout">
       <section class="results" aria-label="Sections">
-        <div class="searchbar">
-          <label class="sr-only" for="search">Search sections</label>
-          <input id="search" type="search" placeholder="Search by code, title or subject" autocomplete="off" />
+        <div class="toolbar">
+          <div class="search">
+            <label class="sr-only" for="search">Search sections</label>
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="search" type="search" placeholder="Search by code, title or subject" autocomplete="off" />
+          </div>
+          <div class="filter-note" id="filterNote"></div>
         </div>
         <div id="list"></div>
       </section>

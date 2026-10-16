@@ -1,10 +1,16 @@
 import { CITIES, allZones, browserZone, cityForZone } from "./core/cities.js";
-import { DAY_NAMES, NY_TZ, describeSchedule, formatClock, formatRange, localSchedule } from "./core/time.js";
+import { DAY_NAMES, NY_TZ, describeSchedule, fitsWindow, formatClock, formatRange, localSchedule, parseClock, wallTime } from "./core/time.js";
 import { VERDICTS, judge } from "./core/verdict.js";
 import { schoolOf } from "./core/schools.js";
+import { readNote } from "./core/notes.js";
 
 const $ = (id) => document.getElementById(id);
 const GROUP_ORDER = ["takeable", "check", "no"];
+const TILE_COPY = {
+  takeable: "Fits your clock and counts for credit",
+  check: "Looks possible — confirm one thing first",
+  no: "Wrong hour, in person, or no credit",
+};
 
 const STORE = { situation: "takeable.situation", starred: "takeable.starred" };
 
@@ -15,6 +21,7 @@ const state = {
   loading: null, // { done, total } while fetching
   error: "",
   search: "",
+  filter: null, // one verdict group, or null for all
   open: null, // class number of the section shown in the detail panel
   sheetOpen: false, // shortlist expanded on narrow screens
   starred: loadStored(STORE.starred, () => ({}), (v) => v && typeof v === "object" && !Array.isArray(v)), // { term: [crn] }
@@ -56,7 +63,7 @@ function defaultSituation() {
   };
 }
 
-// ---------- Situation bar ----------
+// ---------- Situation sentence ----------
 
 function fillSituationControls() {
   const s = state.situation;
@@ -124,6 +131,21 @@ function onSituationChange(event) {
   }
   save(STORE.situation, s);
   render();
+}
+
+// ---------- Clocks ----------
+
+function renderClocks() {
+  const now = Date.now();
+  const clock = (label, tz, you) => {
+    const w = wallTime(now, tz);
+    const night = w.minutes < 6 * 60 || w.minutes >= 22 * 60;
+    return `<div class="clock${you ? " you" : ""}"><span class="where">${escapeHtml(label)}${you ? " · you" : ""}</span><span class="time">${formatClock(
+      w.minutes,
+    ).toUpperCase()}${night ? `<span class="night" title="Night there">☾</span>` : ""}</span></div>`;
+  };
+  const { tz, cityLabel } = state.situation;
+  $("clocks").innerHTML = tz === NY_TZ ? clock("New York", NY_TZ, true) : clock("New York", NY_TZ, false) + clock(cityLabel, tz, true);
 }
 
 // ---------- Data ----------
@@ -195,6 +217,7 @@ function judged() {
 }
 
 function render() {
+  renderClocks();
   renderBanner();
   renderSummary();
   renderList();
@@ -218,9 +241,9 @@ function renderSummary() {
   const el = $("summary");
   if (state.loading) {
     const { done, total } = state.loading;
-    el.innerHTML = `<span class="progress">${total ? `Checking ${done} of ${total} sections with NYU…` : "Asking NYU for this term's sections…"}</span>${
+    el.innerHTML = `<div class="loading"><span>${total ? `Checking ${done} of ${total} sections with NYU…` : "Asking NYU for this term's sections…"}</span>${
       total ? `<progress max="${total}" value="${done}" aria-label="Sections checked"></progress>` : ""
-    }`;
+    }</div>`;
     return;
   }
   if (!state.data) {
@@ -232,15 +255,21 @@ function renderSummary() {
   const hidden = state.data.inPersonHidden;
   const away = state.situation.tz !== NY_TZ;
   el.innerHTML =
-    GROUP_ORDER.map((v) => `<span class="count ${v}"><b>${counts[v]}</b> ${VERDICTS[v].label.toLowerCase()}</span>`).join("") +
+    GROUP_ORDER.map(
+      (v) => `<button type="button" class="tile ${v}" data-filter="${v}" aria-pressed="${state.filter === v}">
+        <span class="num">${counts[v]}</span>
+        <span class="label">${VERDICTS[v].symbol} ${VERDICTS[v].label}</span>
+        <span class="sub">${TILE_COPY[v]}</span>
+      </button>`,
+    ).join("") +
     (hidden
-      ? `<span class="count hidden-count">+ ${hidden} in-person sections ${away ? "hidden while you're away" : "not listed — Takeable covers remote study"}</span>`
+      ? `<p class="board-note">+ ${hidden} in-person sections ${away ? `hidden — you'll be in ${escapeHtml(state.situation.cityLabel)}` : "not listed — Takeable covers remote study"}.</p>`
       : "");
 }
 
 // When nothing is fully takeable, say what's blocking most sections and offer the obvious fix.
 function blockerHtml(items) {
-  if (state.search.trim() || items.some((i) => i.verdict === "takeable")) return "";
+  if (state.search.trim() || state.filter || items.some((i) => i.verdict === "takeable")) return "";
   const blocked = items.filter((i) => i.verdict === "no");
   if (!blocked.length) return "";
   const byTime = blocked.filter((i) => i.reasons.some((r) => r.kind === "time" && r.level === "fail" && r.schedule));
@@ -252,23 +281,26 @@ function blockerHtml(items) {
     // Times wrap around midnight, so measure them from the middle of the student's class hours:
     // the blocked starts then sit together in one run (late evening → early morning).
     const { earliest, latest } = state.situation.window;
-    const pivot = (parseClockValue(earliest) + parseClockValue(latest)) / 2;
+    const pivot = (parseClock(earliest) + parseClock(latest)) / 2;
     const shifted = byTime
       .map((i) => i.reasons.find((r) => r.kind === "time").schedule.first[0].local.start.minutes)
       .map((m) => (m - pivot + 1440) % 1440)
       .sort((a, b) => a - b);
     const q = (p) => (shifted[Math.min(shifted.length - 1, Math.floor(p * shifted.length))] + pivot) % 1440;
     text = `${byTime.length} of ${blocked.length} blocked sections meet outside your class hours — most start between ${formatClock(q(0.25))} and ${formatClock(q(0.75))} in ${city}.`;
-    const wide = state.situation.window.earliest === "06:00" && state.situation.window.latest === "24:00";
+    const wide = earliest === "06:00" && latest === "24:00";
     if (!wide) action = `<button type="button" class="ghost" data-action="widen">Try 6:00 am – midnight</button>`;
   } else {
     text = `${byCredit.length} of ${blocked.length} blocked sections are School of Professional Studies courses, which Stern doesn't credit.`;
   }
-  return `<div class="blocker"><p><b>Nothing is fully takeable from ${city} this term.</b> ${text}</p>${action}</div>`;
+  return `<div class="blocker"><span class="icon" aria-hidden="true">☾</span><p><b>Nothing is fully takeable from ${city} this term.</b> ${text}</p>${action}</div>`;
 }
 
 function renderList() {
   const el = $("list");
+  $("filterNote").innerHTML = state.filter
+    ? `Showing only <b>${VERDICTS[state.filter].label}</b> <button type="button" data-action="clear-filter">Show all</button>`
+    : "";
   if (state.error) {
     el.innerHTML = `<div class="empty">${escapeHtml(state.error)}</div>`;
     return;
@@ -282,18 +314,18 @@ function renderList() {
     el.innerHTML = `<div class="empty">No sections match “${escapeHtml(state.search)}” this term.</div>`;
     return;
   }
-  el.innerHTML =
-    blockerHtml(items) +
-    GROUP_ORDER.map((v) => {
+  const groups = state.filter ? [state.filter] : GROUP_ORDER;
+  const html = groups
+    .map((v) => {
       const group = items.filter((i) => i.verdict === v).sort((a, b) => a.section.code.localeCompare(b.section.code, "en", { numeric: true }));
       if (!group.length) return "";
-      return `<section class="group"><h2>${VERDICTS[v].label} · ${group.length}</h2><ul class="rows">${group.map(rowHtml).join("")}</ul></section>`;
-    }).join("");
-}
-
-function parseClockValue(hhmm) {
-  const [h, m] = hhmm.split(":").map(Number);
-  return h * 60 + m;
+      return `<section class="group">
+        <div class="group-head ${v}"><span class="dot"></span><h2>${VERDICTS[v].label}</h2><span class="n">${group.length}</span></div>
+        <ul class="cards">${group.map(cardHtml).join("")}</ul>
+      </section>`;
+    })
+    .join("");
+  el.innerHTML = blockerHtml(items) + (html || `<div class="empty">No ${VERDICTS[state.filter].label.toLowerCase()} sections this term.</div>`);
 }
 
 function widenHours() {
@@ -304,17 +336,123 @@ function widenHours() {
   render();
 }
 
-function rowHtml({ section: s, verdict, reasons }) {
-  // The time column already shows a passing time, so the row leads with the next reason.
+const LEVEL_SYMBOL = { fail: "✕", check: "?", pass: "✓" };
+
+function cardHtml({ section: s, verdict, reasons }) {
+  // The 24-hour bar already shows the time, so the card leads with the most useful other reason.
   const top = reasons.find((r) => !(r.kind === "time" && r.level === "pass")) || reasons[0];
-  const levelClass = top.level === "pass" ? "" : top.level;
-  return `<li class="row${s.crn === state.open ? " open" : ""}" tabindex="0" data-crn="${s.crn}">
-    <div class="row-title"><span class="code">${escapeHtml(s.code)}</span><span class="title">${escapeHtml(s.title)}</span></div>
-    <div class="reason ${levelClass}">${escapeHtml(top.text)}</div>
-    <div class="when">${whenHtml(s)}</div>
-    <div class="verdict">${chipHtml(verdict)}</div>
-    ${starButtonHtml(s)}
+  const text = top.kind === "time" && top.level === "fail" && top.schedule ? `Outside your class hours (${windowText()})` : top.text;
+  const school = schoolOf(s);
+  return `<li class="card ${verdict}${s.crn === state.open ? " open" : ""}" tabindex="0" data-crn="${s.crn}">
+    <div class="info">
+      <div class="meta"><span class="code">${escapeHtml(s.code)}</span><span>${escapeHtml(school.short || school.name)} · ${escapeHtml(
+        creditsText(s.credits),
+      )} cr · ${s.mode === "blended" ? "Blended" : "Online"}</span></div>
+      <div class="title">${escapeHtml(s.title)}</div>
+      <div class="why ${top.level}"><span class="mark" aria-hidden="true">${LEVEL_SYMBOL[top.level]}</span><span>${escapeHtml(text)}</span></div>
+    </div>
+    ${whenHtml(s)}
+    <div class="right">${chipHtml(verdict)}${starButtonHtml(s)}</div>
   </li>`;
+}
+
+function windowText() {
+  const { earliest, latest } = state.situation.window;
+  const end = parseClock(latest);
+  return `${formatClock(parseClock(earliest))} – ${end === 1440 ? "midnight" : formatClock(end)}`;
+}
+
+function whenHtml(s) {
+  const tz = state.situation.tz;
+  if (!s.meetings.length) {
+    const async = /does not meet/i.test(s.meetsText) || readNote(s.note).async === true;
+    return `<div class="when">
+      <div class="when-text"><span class="local">${async ? "Anytime" : "Time not listed"}</span></div>
+      ${dialHtml(async ? [{ anytime: true }] : [{ unknown: true }])}
+      ${ticksHtml()}
+      <div class="ny-line">${async ? "Asynchronous — on your own schedule" : "Check the official listing"}</div>
+    </div>`;
+  }
+  const schedule = localSchedule(s, tz);
+  const away = tz !== NY_TZ;
+  const ranges = uniqueRanges(schedule.first);
+  const local = ranges.length > 1 ? `${describeSchedule([ranges[0].entry])} +${ranges.length - 1} more` : describeSchedule(schedule.first);
+  return `<div class="when">
+    <div class="when-text"><span class="local">${escapeHtml(local)}</span></div>
+    ${dialHtml(ranges.map((r) => ({ local: r.entry.local })))}
+    ${ticksHtml()}
+    ${away ? `<div class="ny-line">${escapeHtml(describeSchedule([ranges[0].entry], "ny"))} in New York</div>` : ""}
+  </div>`;
+}
+
+function uniqueRanges(entries) {
+  const seen = new Map();
+  for (const e of entries) {
+    const key = `${e.local.start.minutes}-${e.local.end.minutes}`;
+    if (!seen.has(key)) seen.set(key, { entry: e });
+  }
+  return [...seen.values()];
+}
+
+// A 24-hour bar on the student's clock: night shading, their class hours, and the class itself.
+function dialHtml(blocks) {
+  const pct = (m) => `${((m / 1440) * 100).toFixed(3)}%`;
+  const { window } = state.situation;
+  const e = parseClock(window.earliest);
+  const l = parseClock(window.latest);
+  let html = `<span class="night" style="left:0;width:${pct(360)}"></span><span class="night" style="left:${pct(1320)};width:${pct(120)}"></span>`;
+  html += `<span class="window" style="left:${pct(e)};width:${pct(Math.max(0, l - e))}"></span>`;
+  for (const b of blocks) {
+    if (b.anytime) html += `<span class="block anytime" title="Asynchronous"></span>`;
+    else if (b.unknown) html += `<span class="block unknown" title="Time not listed"></span>`;
+    else {
+      const fit = fitsWindow(b.local, window) ? "fit" : "miss";
+      const start = b.local.start.minutes;
+      const end = b.local.crossesMidnight ? 1440 : b.local.end.minutes;
+      const title = formatRange(b.local);
+      html += `<span class="block ${fit}" style="left:${pct(start)};width:${pct(end - start)}" title="${title}"></span>`;
+      if (b.local.crossesMidnight) {
+        html += `<span class="block ${fit}" style="left:0;width:${pct(b.local.end.minutes)}" title="${title}"></span>`;
+      }
+    }
+  }
+  return `<div class="dial" aria-hidden="true">${html}</div>`;
+}
+
+function ticksHtml() {
+  return `<div class="ticks" aria-hidden="true"><span>12a</span><span>6a</span><span>12p</span><span>6p</span><span>12a</span></div>`;
+}
+
+// One bar per local weekday for the detail panel.
+function weekHtml(s) {
+  if (!s.meetings.length) return "";
+  const schedule = localSchedule(s, state.situation.tz);
+  const { window } = state.situation;
+  const pct = (m) => `${((m / 1440) * 100).toFixed(3)}%`;
+  const e = parseClock(window.earliest);
+  const l = parseClock(window.latest);
+  const rows = DAY_NAMES.map((name, day) => {
+    let blocks = "";
+    for (const entry of schedule.first) {
+      const { local } = entry;
+      const fit = fitsWindow(local, window) ? "fit" : "miss";
+      if (local.start.weekday === day) {
+        const end = local.crossesMidnight ? 1440 : local.end.minutes;
+        blocks += `<span class="block ${fit}" style="left:${pct(local.start.minutes)};width:${pct(end - local.start.minutes)}"></span>`;
+      }
+      if (local.crossesMidnight && local.end.weekday === day && local.end.minutes > 0) {
+        blocks += `<span class="block ${fit}" style="left:0;width:${pct(local.end.minutes)}"></span>`;
+      }
+    }
+    const on = blocks !== "";
+    return `<span class="day${on ? " on" : ""}">${name}</span><div class="dial" aria-hidden="true"><span class="night" style="left:0;width:${pct(
+      360,
+    )}"></span><span class="night" style="left:${pct(1320)};width:${pct(120)}"></span><span class="window" style="left:${pct(e)};width:${pct(
+      Math.max(0, l - e),
+    )}"></span>${blocks}</div>`;
+  }).join("");
+  return `<div class="week">${rows}<span></span>${ticksHtml()}</div>
+    <div class="week-legend"><span><i style="background:var(--window);border:1px dashed var(--window-edge)"></i>Your class hours</span><span><i style="background:var(--ok-solid)"></i>Fits</span><span><i style="background:var(--no-solid)"></i>Outside your hours</span></div>`;
 }
 
 function starButtonHtml(s, withLabel = false) {
@@ -349,12 +487,12 @@ function shortlistHtml() {
   const sections = starredList()
     .map((crn) => state.data?.sections.find((s) => s.crn === crn))
     .filter(Boolean);
-  const head = (count) => `<h3><button type="button" class="sheet-toggle" data-action="sheet" aria-expanded="${state.sheetOpen}">
-      Your shortlist${termName ? ` · ${escapeHtml(termName)}` : ""}${count ? ` <span class="badge">${count}</span>` : ""}</button></h3>`;
+  const head = `<div class="pass-head"><button type="button" class="sheet-toggle" data-action="sheet" aria-expanded="${state.sheetOpen}">
+      <span><span class="kicker">Your shortlist</span><span class="pass-title">${escapeHtml(termName || "This term")}</span></span>
+      <span class="badge">${sections.length}</span></button></div>`;
   if (!sections.length) {
-    return `<section class="panel shortlist" aria-label="Shortlist">
-      ${head(0)}
-      <p class="muted">Star sections (☆) to keep them here. Click any section to see the evidence behind its verdict.</p>
+    return `<section class="panel shortlist" aria-label="Shortlist">${head}
+      <div class="pass-body"><p class="muted">Star sections (☆) to keep them here with their total credits and class numbers. Click any section to see the evidence behind its verdict.</p></div>
     </section>`;
   }
   const min = sections.reduce((a, s) => a + (s.credits?.min || 0), 0);
@@ -373,12 +511,14 @@ function shortlistHtml() {
       </li>`;
     })
     .join("");
-  return `<section class="panel shortlist" aria-label="Shortlist">
-    ${head(sections.length)}
-    <ul class="short-items">${items}</ul>
-    <div class="short-total"><span>Total</span><b>${total} credits</b></div>
-    <button type="button" class="primary" data-action="copy">Copy class numbers</button>
-    <p class="muted small">Paste them into Albert's class search when your registration opens.</p>
+  return `<section class="panel shortlist" aria-label="Shortlist">${head}
+    <div class="pass-body">
+      <ul class="short-items">${items}</ul>
+      <div class="perforation" aria-hidden="true"></div>
+      <div class="short-total"><span>Total</span><b>${total} cr</b></div>
+      <button type="button" class="primary" data-action="copy">Copy class numbers</button>
+      <p class="muted small">Paste them into Albert's class search when your registration opens.</p>
+    </div>
   </section>`;
 }
 
@@ -401,17 +541,7 @@ async function copyClassNumbers(button) {
   }, 2000);
 }
 
-function whenHtml(s) {
-  if (!s.meetings.length) return `<div class="local">Any time</div><div class="ny">${/does not meet/i.test(s.meetsText) ? "Asynchronous" : "Time not listed"}</div>`;
-  const schedule = localSchedule(s, state.situation.tz);
-  const local = describeSchedule(schedule.first);
-  const away = state.situation.tz !== NY_TZ;
-  return `<div class="local">${escapeHtml(local)}</div>${away ? `<div class="ny">${escapeHtml(describeSchedule(schedule.first, "ny"))} New York</div>` : ""}`;
-}
-
 // ---------- Side: detail panel ----------
-
-const LEVEL_SYMBOL = { fail: "✕", check: "?", pass: "✓" };
 
 function renderSide() {
   const el = $("side");
@@ -428,7 +558,7 @@ function detailHtml(s) {
   return `<article class="panel detail" aria-label="${escapeHtml(s.code)} details">
     <header class="panel-head">
       <div>
-        <div class="code">${escapeHtml(s.code)} · Section ${escapeHtml(s.section)}</div>
+        <span class="code">${escapeHtml(s.code)} · Section ${escapeHtml(s.section)}</span>
         <h3>${escapeHtml(s.title)}</h3>
       </div>
       <button type="button" class="icon-btn" data-action="close" aria-label="Close details">×</button>
@@ -442,9 +572,11 @@ function detailHtml(s) {
       )
       .join("")}</ul>
 
-    <h4>When it meets</h4>
+    <h4>Your week in ${escapeHtml(city)}</h4>
+    ${s.meetings.length ? weekHtml(s) : ""}
     ${meetingTableHtml(s, city)}
 
+    <h4>Section</h4>
     <dl class="facts">
       <dt>Dates</dt><dd>${escapeHtml(formatDate(s.startDate))} – ${escapeHtml(formatDate(s.endDate, true))}</dd>
       <dt>Mode</dt><dd>${s.mode === "blended" ? "Blended (online and in person)" : "Online"}</dd>
@@ -465,7 +597,7 @@ function detailHtml(s) {
 
 function meetingTableHtml(s, city) {
   if (!s.meetings.length) {
-    return `<p class="muted">${/does not meet/i.test(s.meetsText) ? "No set meeting times — asynchronous." : "NYU hasn't listed meeting times."}</p>`;
+    return `<p class="muted">${/does not meet/i.test(s.meetsText) ? "No set meeting times — asynchronous, so you work on your own schedule." : "NYU hasn't listed meeting times."}</p>`;
   }
   const schedule = localSchedule(s, state.situation.tz);
   const rows = schedule.first
@@ -482,7 +614,7 @@ function meetingTableHtml(s, city) {
 }
 
 function creditsText(c) {
-  if (!c) return "Not listed";
+  if (!c) return "?";
   return c.min === c.max ? `${c.min}` : `${c.min}–${c.max}`;
 }
 
@@ -496,15 +628,16 @@ function formatDate(iso, withYear = false) {
   });
 }
 
-function markOpenRow() {
-  document.querySelectorAll(".row.open").forEach((r) => r.classList.remove("open"));
-  if (state.open) document.querySelector(`.row[data-crn="${state.open}"]`)?.classList.add("open");
+function markOpenCard() {
+  document.querySelectorAll(".card.open").forEach((r) => r.classList.remove("open"));
+  if (state.open) document.querySelector(`.card[data-crn="${state.open}"]`)?.classList.add("open");
 }
 
 function openSection(crn) {
   state.open = crn;
   renderSide();
-  markOpenRow();
+  markOpenCard();
+  $("side").scrollTop = 0;
   $("side").querySelector(".icon-btn")?.focus({ preventScroll: true });
 }
 
@@ -513,8 +646,8 @@ function closeSection() {
   const crn = state.open;
   state.open = null;
   renderSide();
-  markOpenRow();
-  document.querySelector(`.row[data-crn="${crn}"]`)?.focus({ preventScroll: true });
+  markOpenCard();
+  document.querySelector(`.card[data-crn="${crn}"]`)?.focus({ preventScroll: true });
 }
 
 export function chipHtml(verdict) {
@@ -543,6 +676,19 @@ $("search").addEventListener("input", (e) => {
   renderSummary();
   renderList();
 });
+$("summary").addEventListener("click", (e) => {
+  const tile = e.target.closest("[data-filter]");
+  if (!tile) return;
+  state.filter = state.filter === tile.dataset.filter ? null : tile.dataset.filter;
+  renderSummary();
+  renderList();
+});
+$("filterNote").addEventListener("click", (e) => {
+  if (!e.target.closest('[data-action="clear-filter"]')) return;
+  state.filter = null;
+  renderSummary();
+  renderList();
+});
 $("list").addEventListener("click", (e) => {
   if (e.target.closest('[data-action="widen"]')) return widenHours();
   const star = e.target.closest('[data-action="star"]');
@@ -551,15 +697,15 @@ $("list").addEventListener("click", (e) => {
     $("list").querySelector(`[data-action="star"][data-crn="${star.dataset.crn}"]`)?.focus({ preventScroll: true });
     return;
   }
-  const row = e.target.closest(".row");
-  if (row) openSection(row.dataset.crn);
+  const card = e.target.closest(".card");
+  if (card) openSection(card.dataset.crn);
 });
 $("list").addEventListener("keydown", (e) => {
   if (e.target.closest("button")) return;
-  const row = e.target.closest(".row");
-  if (row && (e.key === "Enter" || e.key === " ")) {
+  const card = e.target.closest(".card");
+  if (card && (e.key === "Enter" || e.key === " ")) {
     e.preventDefault();
-    openSection(row.dataset.crn);
+    openSection(card.dataset.crn);
   }
 });
 $("side").addEventListener("click", (e) => {
@@ -580,6 +726,8 @@ document.addEventListener("keydown", (e) => {
 });
 
 fillSituationControls();
+renderClocks();
+setInterval(renderClocks, 20_000);
 await loadTerms();
 render();
 loadSections();
