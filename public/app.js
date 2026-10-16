@@ -1,6 +1,7 @@
 import { CITIES, allZones, browserZone, cityForZone } from "./core/cities.js";
-import { NY_TZ, describeSchedule, formatClock, localSchedule } from "./core/time.js";
+import { DAY_NAMES, NY_TZ, describeSchedule, formatClock, formatRange, localSchedule } from "./core/time.js";
 import { VERDICTS, judge } from "./core/verdict.js";
+import { schoolOf } from "./core/schools.js";
 
 const $ = (id) => document.getElementById(id);
 const GROUP_ORDER = ["takeable", "check", "no"];
@@ -12,6 +13,7 @@ const state = {
   loading: null, // { done, total } while fetching
   error: "",
   search: "",
+  open: null, // class number of the section shown in the detail panel
 };
 
 function defaultSituation() {
@@ -112,6 +114,7 @@ async function loadSections() {
   if (!term) return;
   state.data = null;
   state.error = "";
+  state.open = null;
   state.loading = { done: 0, total: 0 };
   render();
   const name = state.terms.find((t) => t.id === term)?.name || term;
@@ -165,6 +168,7 @@ function judged() {
 function render() {
   renderSummary();
   renderList();
+  renderSide();
   renderFooter();
 }
 
@@ -181,9 +185,10 @@ function renderSummary() {
   }
   const items = judged();
   const counts = Object.fromEntries(GROUP_ORDER.map((v) => [v, items.filter((i) => i.verdict === v).length]));
-  el.innerHTML = GROUP_ORDER.map(
-    (v) => `<span class="count ${v}"><b>${counts[v]}</b> ${VERDICTS[v].label.toLowerCase()}</span>`,
-  ).join("");
+  const hidden = state.data.inPersonHidden;
+  el.innerHTML =
+    GROUP_ORDER.map((v) => `<span class="count ${v}"><b>${counts[v]}</b> ${VERDICTS[v].label.toLowerCase()}</span>`).join("") +
+    (hidden ? `<span class="count hidden-count">+ ${hidden} in-person sections hidden while you're away</span>` : "");
 }
 
 function renderList() {
@@ -212,7 +217,7 @@ function rowHtml({ section: s, verdict, reasons }) {
   // The time column already shows a passing time, so the row leads with the next reason.
   const top = reasons.find((r) => !(r.kind === "time" && r.level === "pass")) || reasons[0];
   const levelClass = top.level === "pass" ? "" : top.level;
-  return `<li class="row" tabindex="0" data-crn="${s.crn}">
+  return `<li class="row${s.crn === state.open ? " open" : ""}" tabindex="0" data-crn="${s.crn}">
     <div class="row-title"><span class="code">${escapeHtml(s.code)}</span><span class="title">${escapeHtml(s.title)}</span></div>
     <div class="reason ${levelClass}">${escapeHtml(top.text)}</div>
     <div class="when">${whenHtml(s)}</div>
@@ -226,6 +231,117 @@ function whenHtml(s) {
   const local = describeSchedule(schedule.first);
   const away = state.situation.tz !== NY_TZ;
   return `<div class="local">${escapeHtml(local)}</div>${away ? `<div class="ny">${escapeHtml(describeSchedule(schedule.first, "ny"))} New York</div>` : ""}`;
+}
+
+// ---------- Side: detail panel ----------
+
+const LEVEL_SYMBOL = { fail: "✕", check: "?", pass: "✓" };
+
+function renderSide() {
+  const el = $("side");
+  const section = state.open && state.data?.sections.find((s) => s.crn === state.open);
+  document.body.classList.toggle("detail-open", Boolean(section));
+  if (!section) {
+    el.innerHTML = `<div class="panel hint"><p>Click any section to see the evidence behind its verdict.</p></div>`;
+    return;
+  }
+  el.innerHTML = detailHtml(section);
+}
+
+function detailHtml(s) {
+  const { verdict, reasons } = judge(s, state.situation);
+  const school = schoolOf(s);
+  const city = state.situation.cityLabel;
+  return `<article class="panel detail" aria-label="${escapeHtml(s.code)} details">
+    <header class="panel-head">
+      <div>
+        <div class="code">${escapeHtml(s.code)} · Section ${escapeHtml(s.section)}</div>
+        <h3>${escapeHtml(s.title)}</h3>
+      </div>
+      <button type="button" class="icon-btn" data-action="close" aria-label="Close details">×</button>
+    </header>
+    <div class="panel-verdict">${chipHtml(verdict)}</div>
+    <ul class="reasons">${reasons
+      .map(
+        (r) => `<li class="reason-item ${r.level}"><span class="mark" aria-hidden="true">${LEVEL_SYMBOL[r.level]}</span><span>${escapeHtml(r.text)}${
+          r.source ? ` <a href="${r.source.url}" target="_blank" rel="noopener">Stern policy</a> <span class="checked">(checked ${escapeHtml(formatDate(r.source.checked, true))})</span>` : ""
+        }</span></li>`,
+      )
+      .join("")}</ul>
+
+    <h4>When it meets</h4>
+    ${meetingTableHtml(s, city)}
+
+    <dl class="facts">
+      <dt>Dates</dt><dd>${escapeHtml(formatDate(s.startDate))} – ${escapeHtml(formatDate(s.endDate, true))}</dd>
+      <dt>Mode</dt><dd>${s.mode === "blended" ? "Blended (online and in person)" : "Online"}</dd>
+      <dt>Credits</dt><dd>${escapeHtml(creditsText(s.credits))}</dd>
+      <dt>Offered by</dt><dd>${escapeHtml(school.name)}</dd>
+      <dt>Class number</dt><dd class="mono">${escapeHtml(s.crn)}</dd>
+      <dt>Component</dt><dd>${escapeHtml(s.component || "—")}</dd>
+    </dl>
+
+    <h4>NYU's note</h4>
+    ${s.note ? `<blockquote>${escapeHtml(s.note)}</blockquote>` : `<p class="muted">No note on this section.</p>`}
+
+    ${s.description ? `<h4>About the course</h4><p class="description">${escapeHtml(s.description)}</p>` : ""}
+
+    <p class="links"><a href="https://bulletins.nyu.edu/search/?P=${encodeURIComponent(s.code)}" target="_blank" rel="noopener">Course in the NYU Bulletin ↗</a></p>
+  </article>`;
+}
+
+function meetingTableHtml(s, city) {
+  if (!s.meetings.length) {
+    return `<p class="muted">${/does not meet/i.test(s.meetsText) ? "No set meeting times — asynchronous." : "NYU hasn't listed meeting times."}</p>`;
+  }
+  const schedule = localSchedule(s, state.situation.tz);
+  const rows = schedule.first
+    .map(
+      (e) => `<tr><td>${DAY_NAMES[e.local.start.weekday]}</td><td class="mono-num">${escapeHtml(formatRange(e.local))}</td><td class="mono-num muted">${
+        DAY_NAMES[e.ny.start.weekday]
+      } ${escapeHtml(formatRange(e.ny))}</td></tr>`,
+    )
+    .join("");
+  const dst = schedule.dstShift
+    ? `<p class="muted">After the clocks change: ${escapeHtml(describeSchedule(schedule.last))} your time.</p>`
+    : "";
+  return `<table class="meetings"><thead><tr><th>Day</th><th>${escapeHtml(city)} (you)</th><th>New York</th></tr></thead><tbody>${rows}</tbody></table>${dst}`;
+}
+
+function creditsText(c) {
+  if (!c) return "Not listed";
+  return c.min === c.max ? `${c.min}` : `${c.min}–${c.max}`;
+}
+
+function formatDate(iso, withYear = false) {
+  if (!iso) return "";
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    ...(withYear ? { year: "numeric" } : {}),
+    timeZone: "UTC",
+  });
+}
+
+function markOpenRow() {
+  document.querySelectorAll(".row.open").forEach((r) => r.classList.remove("open"));
+  if (state.open) document.querySelector(`.row[data-crn="${state.open}"]`)?.classList.add("open");
+}
+
+function openSection(crn) {
+  state.open = crn;
+  renderSide();
+  markOpenRow();
+  $("side").querySelector(".icon-btn")?.focus({ preventScroll: true });
+}
+
+function closeSection() {
+  if (!state.open) return;
+  const crn = state.open;
+  state.open = null;
+  renderSide();
+  markOpenRow();
+  document.querySelector(`.row[data-crn="${crn}"]`)?.focus({ preventScroll: true });
 }
 
 export function chipHtml(verdict) {
@@ -253,6 +369,23 @@ $("search").addEventListener("input", (e) => {
   state.search = e.target.value;
   renderSummary();
   renderList();
+});
+$("list").addEventListener("click", (e) => {
+  const row = e.target.closest(".row");
+  if (row) openSection(row.dataset.crn);
+});
+$("list").addEventListener("keydown", (e) => {
+  const row = e.target.closest(".row");
+  if (row && (e.key === "Enter" || e.key === " ")) {
+    e.preventDefault();
+    openSection(row.dataset.crn);
+  }
+});
+$("side").addEventListener("click", (e) => {
+  if (e.target.closest('[data-action="close"]')) closeSection();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeSection();
 });
 
 fillSituationControls();

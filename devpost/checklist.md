@@ -53,7 +53,7 @@ Build mode: fast
   Learner check: Choose Stern + Beijing + January 2027 and look at the three groups. Do the ✓ / ? / ✕ verdicts and their one-line reasons make sense to you as a Stern student? Then switch to London.
   Commit: `Add Stern credit rules and restriction checks to the verdict`
 
-- [ ] **3. See the evidence and search**
+- [x] **3. See the evidence and search**
   Becomes usable: Clicking any row opens a detail panel with:
     - New York vs local times
     - Session dates and instruction mode
@@ -114,7 +114,8 @@ Build mode: fast
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — after slice 2 (full verdict on real data), before detail, search and shortlist are built on top of it
+- [x] Early usable behavior explored — after slice 2 (full verdict on real data), before detail, search and shortlist are built on top of it
+  Learner tried Beijing → 6:30 am → London on January 2027: "判定和理由都说得通，没有要改的" (verdicts and reasons make sense, nothing to change).
 - [ ] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
