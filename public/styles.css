@@ -241,6 +241,35 @@ blockquote {
 .primary.done { background: var(--ok); }
 .small { font-size: 12.5px !important; }
 
+/* Loading, blockers */
+.summary progress {
+  flex: 1 1 200px; max-width: 320px; height: 6px; border-radius: 999px; overflow: hidden;
+  appearance: none; -webkit-appearance: none; border: none; background: var(--line);
+}
+.summary progress::-webkit-progress-bar { background: var(--line); }
+.summary progress::-webkit-progress-value { background: var(--accent); border-radius: 999px; }
+.summary progress::-moz-progress-bar { background: var(--accent); }
+.blocker {
+  margin-top: 18px; padding: 14px 16px; border-radius: var(--radius); background: var(--surface);
+  box-shadow: var(--shadow); border-left: 4px solid var(--no);
+  display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap;
+}
+.blocker p { margin: 0; flex: 1 1 320px; }
+.ghost {
+  border: 1.5px solid var(--accent); color: var(--accent); background: transparent; font: inherit; font-weight: 650;
+  padding: 8px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+}
+.ghost:hover, .ghost:focus-visible { background: color-mix(in srgb, var(--accent) 10%, transparent); outline: none; }
+
+/* Shortlist heading doubles as the sheet toggle on narrow screens */
+.sheet-toggle {
+  all: unset; display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 700; cursor: default;
+}
+.badge {
+  display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px;
+  background: var(--accent); color: var(--accent-ink); font-size: 12px; font-weight: 700;
+}
+
 .empty {
   margin-top: 22px; padding: 28px; text-align: center; color: var(--muted);
   background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
@@ -259,6 +288,18 @@ blockquote {
     padding: 0; box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.25); border-radius: 18px 18px 0 0;
   }
   body.detail-open .side .panel { border-radius: 18px 18px 0 0; }
+  /* Shortlist: a collapsed bar at the bottom that opens into a sheet. */
+  body:not(.detail-open) .side {
+    position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 15; max-height: 70vh; overflow: auto;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.18); border-radius: 18px 18px 0 0;
+  }
+  body:not(.detail-open) .side .panel { border-radius: 18px 18px 0 0; padding: 14px 18px; }
+  body:not(.detail-open):not(.sheet-open) .shortlist > :not(h3) { display: none; }
+  .shortlist h3 { margin: 0; }
+  .sheet-toggle { cursor: pointer; width: 100%; justify-content: space-between; }
+  .sheet-toggle::after { content: "▴"; color: var(--muted); }
+  body.sheet-open .sheet-toggle::after { content: "▾"; }
+  .footer { padding-bottom: 96px; }
 }
 @media (max-width: 600px) {
   .situation { font-size: 17px; padding: 12px 16px; }

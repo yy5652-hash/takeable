@@ -87,7 +87,7 @@ Build mode: fast
   Learner check: Star two courses you might really take, reload the page, and paste the copied class numbers somewhere. Are they what you'd type into Albert?
   Commit: `Add shortlist with credit totals, copy, and remembered situation`
 
-- [ ] **5. Trustworthy edges and the finished look**
+- [x] **5. Trustworthy edges and the finished look**
   Becomes usable: Takeable now handles the edge cases and looks finished.
     - A first fetch shows "Checking N of M sections…".
     - When NYU is unreachable it uses the snapshot and shows a banner. A term with no snapshot shows a clear message.
@@ -142,3 +142,5 @@ Activity mode: not started
 - Restriction phrases widened to include "restricted", "only" and "prerequisite". Excluded: "open to all" and "first-years and above". Real January notes such as "Pre-requisite: Law, Business, & Society" and "only Drama seniors will have priority" were otherwise missed; `prd.md > Takeability Verdict` updated.
 - Independent-study sections are a Check ("you need a faculty sponsor first"). From Beijing, the only "Takeable" January section was an independent study with an empty note, which overstated what a student can just sign up for.
 - Rows lead with the first reason that isn't a passing time, because the time column already shows it.
+- The "nothing takeable" message measures start times around the middle of the student's class hours. Sorting raw clock times split overnight classes at midnight and produced "most start between 1:30 am and 10:30 pm"; it now reads "between 11:00 pm and 2:00 am in Beijing".
+- Dates on the page are always formatted in US English. The browser's own locale had put Chinese dates into the English interface.

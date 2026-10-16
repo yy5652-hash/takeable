@@ -16,6 +16,7 @@ const state = {
   error: "",
   search: "",
   open: null, // class number of the section shown in the detail panel
+  sheetOpen: false, // shortlist expanded on narrow screens
   starred: loadStored(STORE.starred, () => ({}), (v) => v && typeof v === "object" && !Array.isArray(v)), // { term: [crn] }
 };
 
@@ -194,17 +195,32 @@ function judged() {
 }
 
 function render() {
+  renderBanner();
   renderSummary();
   renderList();
   renderSide();
   renderFooter();
 }
 
+function renderBanner() {
+  const d = state.data;
+  const banner = $("banner");
+  if (d?.source === "snapshot") {
+    const saved = new Date(d.fetchedAt).toLocaleDateString("en-US", { dateStyle: "medium" });
+    banner.textContent = `Couldn't reach NYU — showing saved data from ${saved}.`;
+    banner.hidden = false;
+  } else {
+    banner.hidden = true;
+  }
+}
+
 function renderSummary() {
   const el = $("summary");
   if (state.loading) {
     const { done, total } = state.loading;
-    el.innerHTML = `<span class="progress">${total ? `Checking ${done} of ${total} sections with NYU…` : "Asking NYU for this term's sections…"}</span>`;
+    el.innerHTML = `<span class="progress">${total ? `Checking ${done} of ${total} sections with NYU…` : "Asking NYU for this term's sections…"}</span>${
+      total ? `<progress max="${total}" value="${done}" aria-label="Sections checked"></progress>` : ""
+    }`;
     return;
   }
   if (!state.data) {
@@ -214,9 +230,41 @@ function renderSummary() {
   const items = judged();
   const counts = Object.fromEntries(GROUP_ORDER.map((v) => [v, items.filter((i) => i.verdict === v).length]));
   const hidden = state.data.inPersonHidden;
+  const away = state.situation.tz !== NY_TZ;
   el.innerHTML =
     GROUP_ORDER.map((v) => `<span class="count ${v}"><b>${counts[v]}</b> ${VERDICTS[v].label.toLowerCase()}</span>`).join("") +
-    (hidden ? `<span class="count hidden-count">+ ${hidden} in-person sections hidden while you're away</span>` : "");
+    (hidden
+      ? `<span class="count hidden-count">+ ${hidden} in-person sections ${away ? "hidden while you're away" : "not listed — Takeable covers remote study"}</span>`
+      : "");
+}
+
+// When nothing is fully takeable, say what's blocking most sections and offer the obvious fix.
+function blockerHtml(items) {
+  if (state.search.trim() || items.some((i) => i.verdict === "takeable")) return "";
+  const blocked = items.filter((i) => i.verdict === "no");
+  if (!blocked.length) return "";
+  const byTime = blocked.filter((i) => i.reasons.some((r) => r.kind === "time" && r.level === "fail" && r.schedule));
+  const byCredit = blocked.filter((i) => i.reasons.some((r) => r.kind === "credit" && r.level === "fail"));
+  const city = escapeHtml(state.situation.cityLabel);
+  let text;
+  let action = "";
+  if (byTime.length >= byCredit.length) {
+    // Times wrap around midnight, so measure them from the middle of the student's class hours:
+    // the blocked starts then sit together in one run (late evening → early morning).
+    const { earliest, latest } = state.situation.window;
+    const pivot = (parseClockValue(earliest) + parseClockValue(latest)) / 2;
+    const shifted = byTime
+      .map((i) => i.reasons.find((r) => r.kind === "time").schedule.first[0].local.start.minutes)
+      .map((m) => (m - pivot + 1440) % 1440)
+      .sort((a, b) => a - b);
+    const q = (p) => (shifted[Math.min(shifted.length - 1, Math.floor(p * shifted.length))] + pivot) % 1440;
+    text = `${byTime.length} of ${blocked.length} blocked sections meet outside your class hours — most start between ${formatClock(q(0.25))} and ${formatClock(q(0.75))} in ${city}.`;
+    const wide = state.situation.window.earliest === "06:00" && state.situation.window.latest === "24:00";
+    if (!wide) action = `<button type="button" class="ghost" data-action="widen">Try 6:00 am – midnight</button>`;
+  } else {
+    text = `${byCredit.length} of ${blocked.length} blocked sections are School of Professional Studies courses, which Stern doesn't credit.`;
+  }
+  return `<div class="blocker"><p><b>Nothing is fully takeable from ${city} this term.</b> ${text}</p>${action}</div>`;
 }
 
 function renderList() {
@@ -234,11 +282,26 @@ function renderList() {
     el.innerHTML = `<div class="empty">No sections match “${escapeHtml(state.search)}” this term.</div>`;
     return;
   }
-  el.innerHTML = GROUP_ORDER.map((v) => {
-    const group = items.filter((i) => i.verdict === v).sort((a, b) => a.section.code.localeCompare(b.section.code, "en", { numeric: true }));
-    if (!group.length) return "";
-    return `<section class="group"><h2>${VERDICTS[v].label} · ${group.length}</h2><ul class="rows">${group.map(rowHtml).join("")}</ul></section>`;
-  }).join("");
+  el.innerHTML =
+    blockerHtml(items) +
+    GROUP_ORDER.map((v) => {
+      const group = items.filter((i) => i.verdict === v).sort((a, b) => a.section.code.localeCompare(b.section.code, "en", { numeric: true }));
+      if (!group.length) return "";
+      return `<section class="group"><h2>${VERDICTS[v].label} · ${group.length}</h2><ul class="rows">${group.map(rowHtml).join("")}</ul></section>`;
+    }).join("");
+}
+
+function parseClockValue(hhmm) {
+  const [h, m] = hhmm.split(":").map(Number);
+  return h * 60 + m;
+}
+
+function widenHours() {
+  state.situation.window = { earliest: "06:00", latest: "24:00" };
+  $("earliest").value = "06:00";
+  $("latest").value = "24:00";
+  save(STORE.situation, state.situation);
+  render();
 }
 
 function rowHtml({ section: s, verdict, reasons }) {
@@ -286,9 +349,11 @@ function shortlistHtml() {
   const sections = starredList()
     .map((crn) => state.data?.sections.find((s) => s.crn === crn))
     .filter(Boolean);
+  const head = (count) => `<h3><button type="button" class="sheet-toggle" data-action="sheet" aria-expanded="${state.sheetOpen}">
+      Your shortlist${termName ? ` · ${escapeHtml(termName)}` : ""}${count ? ` <span class="badge">${count}</span>` : ""}</button></h3>`;
   if (!sections.length) {
     return `<section class="panel shortlist" aria-label="Shortlist">
-      <h3>Your shortlist${termName ? ` · ${escapeHtml(termName)}` : ""}</h3>
+      ${head(0)}
       <p class="muted">Star sections (☆) to keep them here. Click any section to see the evidence behind its verdict.</p>
     </section>`;
   }
@@ -309,7 +374,7 @@ function shortlistHtml() {
     })
     .join("");
   return `<section class="panel shortlist" aria-label="Shortlist">
-    <h3>Your shortlist${termName ? ` · ${escapeHtml(termName)}` : ""}</h3>
+    ${head(sections.length)}
     <ul class="short-items">${items}</ul>
     <div class="short-total"><span>Total</span><b>${total} credits</b></div>
     <button type="button" class="primary" data-action="copy">Copy class numbers</button>
@@ -352,6 +417,7 @@ function renderSide() {
   const el = $("side");
   const section = state.open && state.data?.sections.find((s) => s.crn === state.open);
   document.body.classList.toggle("detail-open", Boolean(section));
+  document.body.classList.toggle("sheet-open", !section && state.sheetOpen);
   el.innerHTML = section ? detailHtml(section) : shortlistHtml();
 }
 
@@ -458,7 +524,7 @@ export function chipHtml(verdict) {
 
 function renderFooter() {
   const d = state.data;
-  const when = d?.fetchedAt ? new Date(d.fetchedAt).toLocaleString([], { dateStyle: "medium", timeStyle: "short" }) : "";
+  const when = d?.fetchedAt ? new Date(d.fetchedAt).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }) : "";
   $("footer").innerHTML = `Course data from NYU's public <a href="https://bulletins.nyu.edu/class-search/" target="_blank" rel="noopener">class search</a>${
     when ? ` · ${d.source === "snapshot" ? "saved snapshot from" : "fetched"} ${escapeHtml(when)}` : ""
   }. Takeable is a student project, not an NYU service — confirm with your adviser before you register.`;
@@ -478,6 +544,7 @@ $("search").addEventListener("input", (e) => {
   renderList();
 });
 $("list").addEventListener("click", (e) => {
+  if (e.target.closest('[data-action="widen"]')) return widenHours();
   const star = e.target.closest('[data-action="star"]');
   if (star) {
     toggleStar(star.dataset.crn);
@@ -503,6 +570,10 @@ $("side").addEventListener("click", (e) => {
   if (action.dataset.action === "star") toggleStar(crn);
   if (action.dataset.action === "open") openSection(crn);
   if (action.dataset.action === "copy") copyClassNumbers(action);
+  if (action.dataset.action === "sheet") {
+    state.sheetOpen = !state.sheetOpen;
+    renderSide();
+  }
 });
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeSection();
