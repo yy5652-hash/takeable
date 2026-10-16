@@ -116,33 +116,34 @@ Build mode: fast
 
 - [x] Early usable behavior explored — after slice 2 (full verdict on real data), before detail, search and shortlist are built on top of it
   Learner tried Beijing → 6:30 am → London on January 2027: "判定和理由都说得通，没有要改的" (verdicts and reasons make sense, nothing to change).
-- [ ] Final kick-the-tires exploration and feedback completed
+- [x] Final kick-the-tires exploration and feedback completed
+  First look: "太丑了优化ui" (too ugly, improve the UI). After the redesign: "新版可以了，确认可以交付" (the new version works, confirmed ready to ship).
 
 ## Final Review
 
 Learner feedback from the final hands-on look: "太丑了优化ui" (too ugly — improve the UI). Visual direction was delegated to the agent in planning, so the agent proposes a redesign for the learner to judge.
 
-- [ ] Redesign the interface. Planned changes:
+- [x] Redesign the interface. Planned changes:
   - a dark departure-board header with live New York and local clocks
   - verdict count tiles that filter the list
   - course cards with a 24-hour bar on the student's clock showing their class hours and the class block
   - a week chart in the detail panel
   - distinctive type
 
-  Implemented and checked in the browser at 1440px light and 390px dark, with no console errors; waiting for the learner to look again.
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+  Implemented and checked in the browser at 1440px light and 390px dark, with no console errors; the learner looked again and approved the new version (commit b5a3ecd).
+- [x] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
-- [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
+- [x] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence: not started
-Route and stops: not started
-Edit outcome: not started
-Reflection: not started
-Activity mode: not started
+Activity and evidence: brief evidence-based recap, because the learner asked to move straight to shipping. Prior practice connected to the learner's goal of working with an agent: the PRD acceptance criteria became `tests/verdict.test.mjs` in slice 2, and `npm test` passed 26/26 both before and after the full UI redesign in commit b5a3ecd.
+Route and stops: reference route in the app map only, not toured. The stops are `public/app.js` → `onSituationChange`, then `public/core/verdict.js` → `judge` / `timeReason`, then `public/core/time.js` → `localSchedule` / `fitsWindow`, with `dialHtml` drawing the bar.
+Edit outcome: not applicable; no edit was offered beyond the recap.
+Reflection: offered as one optional question, with the hand-off to 6-ship.
+Activity mode: recap
 
 ## Revisions
 
