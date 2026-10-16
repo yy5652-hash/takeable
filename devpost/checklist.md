@@ -73,7 +73,7 @@ Build mode: fast
   Learner check: Click a red ✕ course and a green ✓ course. Does the panel show you enough to trust the verdict? Search for a subject you'd actually take.
   Commit: `Add section detail panel, search and in-person count`
 
-- [ ] **4. Shortlist and a remembered situation**
+- [x] **4. Shortlist and a remembered situation**
   Becomes usable: Star sections from a row or the panel. The shortlist shows them with current verdicts, total credits (ranges for variable credit) and **Copy class numbers**. Your city, term, hours, home school and stars survive a reload. On first visit the city is guessed from the computer's time zone, with a "guessed" label.
   Why now: This closes the core loop (decide → keep → act in registration) once the verdicts it shows are complete.
   PRD ref: `prd.md > Shortlist`, `prd.md > Situation Bar`, `prd.md > States and Boundaries` (persistence, first use)

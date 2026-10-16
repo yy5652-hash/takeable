@@ -6,15 +6,42 @@ import { schoolOf } from "./core/schools.js";
 const $ = (id) => document.getElementById(id);
 const GROUP_ORDER = ["takeable", "check", "no"];
 
+const STORE = { situation: "takeable.situation", starred: "takeable.starred" };
+
 const state = {
-  situation: defaultSituation(),
+  situation: loadStored(STORE.situation, defaultSituation, validSituation),
   terms: [],
   data: null, // sections payload for the current term
   loading: null, // { done, total } while fetching
   error: "",
   search: "",
   open: null, // class number of the section shown in the detail panel
+  starred: loadStored(STORE.starred, () => ({}), (v) => v && typeof v === "object" && !Array.isArray(v)), // { term: [crn] }
 };
+
+// Local storage can be missing or blocked (private windows); the page works without it.
+function loadStored(key, fallback, isValid) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key));
+    if (value && isValid(value)) return value;
+  } catch {}
+  return fallback();
+}
+
+function save(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {}
+}
+
+function validSituation(s) {
+  try {
+    new Intl.DateTimeFormat("en-US", { timeZone: s.tz });
+  } catch {
+    return false;
+  }
+  return ["stern", "other"].includes(s.homeSchool) && s.window?.earliest && s.window?.latest && typeof s.cityLabel === "string";
+}
 
 function defaultSituation() {
   const tz = browserZone();
@@ -94,6 +121,7 @@ function onSituationChange(event) {
     s.term = event.target.value;
     loadSections();
   }
+  save(STORE.situation, s);
   render();
 }
 
@@ -222,7 +250,90 @@ function rowHtml({ section: s, verdict, reasons }) {
     <div class="reason ${levelClass}">${escapeHtml(top.text)}</div>
     <div class="when">${whenHtml(s)}</div>
     <div class="verdict">${chipHtml(verdict)}</div>
+    ${starButtonHtml(s)}
   </li>`;
+}
+
+function starButtonHtml(s, withLabel = false) {
+  const on = isStarred(s.crn);
+  const label = on ? `Remove ${s.code} from shortlist` : `Add ${s.code} to shortlist`;
+  return `<button type="button" class="star${on ? " on" : ""}${withLabel ? " labelled" : ""}" data-action="star" data-crn="${s.crn}" aria-pressed="${on}" aria-label="${escapeHtml(label)}" title="${escapeHtml(label)}"><span aria-hidden="true">${on ? "★" : "☆"}</span>${
+    withLabel ? (on ? " On your shortlist" : " Add to shortlist") : ""
+  }</button>`;
+}
+
+// ---------- Shortlist ----------
+
+function starredList() {
+  return state.starred[state.situation.term] || [];
+}
+
+function isStarred(crn) {
+  return starredList().includes(crn);
+}
+
+function toggleStar(crn) {
+  const term = state.situation.term;
+  const list = starredList();
+  state.starred[term] = list.includes(crn) ? list.filter((c) => c !== crn) : [...list, crn];
+  save(STORE.starred, state.starred);
+  renderList();
+  renderSide();
+}
+
+function shortlistHtml() {
+  const termName = state.terms.find((t) => t.id === state.situation.term)?.name || "";
+  const sections = starredList()
+    .map((crn) => state.data?.sections.find((s) => s.crn === crn))
+    .filter(Boolean);
+  if (!sections.length) {
+    return `<section class="panel shortlist" aria-label="Shortlist">
+      <h3>Your shortlist${termName ? ` · ${escapeHtml(termName)}` : ""}</h3>
+      <p class="muted">Star sections (☆) to keep them here. Click any section to see the evidence behind its verdict.</p>
+    </section>`;
+  }
+  const min = sections.reduce((a, s) => a + (s.credits?.min || 0), 0);
+  const max = sections.reduce((a, s) => a + (s.credits?.max || 0), 0);
+  const total = min === max ? `${min}` : `${min}–${max}`;
+  const items = sections
+    .map((s) => {
+      const { verdict } = judge(s, state.situation);
+      return `<li class="short-item">
+        <button type="button" class="short-open" data-action="open" data-crn="${s.crn}">
+          <span class="code">${escapeHtml(s.code)}</span>
+          <span class="short-title">${escapeHtml(s.title)}</span>
+          <span class="short-meta">${chipHtml(verdict)}<span class="muted">${escapeHtml(creditsText(s.credits))} cr · #${escapeHtml(s.crn)}</span></span>
+        </button>
+        <button type="button" class="icon-btn small" data-action="star" data-crn="${s.crn}" aria-label="Remove ${escapeHtml(s.code)} from shortlist">×</button>
+      </li>`;
+    })
+    .join("");
+  return `<section class="panel shortlist" aria-label="Shortlist">
+    <h3>Your shortlist${termName ? ` · ${escapeHtml(termName)}` : ""}</h3>
+    <ul class="short-items">${items}</ul>
+    <div class="short-total"><span>Total</span><b>${total} credits</b></div>
+    <button type="button" class="primary" data-action="copy">Copy class numbers</button>
+    <p class="muted small">Paste them into Albert's class search when your registration opens.</p>
+  </section>`;
+}
+
+async function copyClassNumbers(button) {
+  const text = starredList()
+    .filter((crn) => state.data?.sections.some((s) => s.crn === crn))
+    .join(", ");
+  let ok = false;
+  try {
+    await navigator.clipboard.writeText(text);
+    ok = true;
+  } catch {
+    ok = false;
+  }
+  button.textContent = ok ? "Copied ✓" : `Copy failed — ${text}`;
+  button.classList.toggle("done", ok);
+  setTimeout(() => {
+    button.textContent = "Copy class numbers";
+    button.classList.remove("done");
+  }, 2000);
 }
 
 function whenHtml(s) {
@@ -241,11 +352,7 @@ function renderSide() {
   const el = $("side");
   const section = state.open && state.data?.sections.find((s) => s.crn === state.open);
   document.body.classList.toggle("detail-open", Boolean(section));
-  if (!section) {
-    el.innerHTML = `<div class="panel hint"><p>Click any section to see the evidence behind its verdict.</p></div>`;
-    return;
-  }
-  el.innerHTML = detailHtml(section);
+  el.innerHTML = section ? detailHtml(section) : shortlistHtml();
 }
 
 function detailHtml(s) {
@@ -260,7 +367,7 @@ function detailHtml(s) {
       </div>
       <button type="button" class="icon-btn" data-action="close" aria-label="Close details">×</button>
     </header>
-    <div class="panel-verdict">${chipHtml(verdict)}</div>
+    <div class="panel-verdict">${chipHtml(verdict)}${starButtonHtml(s, true)}</div>
     <ul class="reasons">${reasons
       .map(
         (r) => `<li class="reason-item ${r.level}"><span class="mark" aria-hidden="true">${LEVEL_SYMBOL[r.level]}</span><span>${escapeHtml(r.text)}${
@@ -371,10 +478,17 @@ $("search").addEventListener("input", (e) => {
   renderList();
 });
 $("list").addEventListener("click", (e) => {
+  const star = e.target.closest('[data-action="star"]');
+  if (star) {
+    toggleStar(star.dataset.crn);
+    $("list").querySelector(`[data-action="star"][data-crn="${star.dataset.crn}"]`)?.focus({ preventScroll: true });
+    return;
+  }
   const row = e.target.closest(".row");
   if (row) openSection(row.dataset.crn);
 });
 $("list").addEventListener("keydown", (e) => {
+  if (e.target.closest("button")) return;
   const row = e.target.closest(".row");
   if (row && (e.key === "Enter" || e.key === " ")) {
     e.preventDefault();
@@ -382,7 +496,13 @@ $("list").addEventListener("keydown", (e) => {
   }
 });
 $("side").addEventListener("click", (e) => {
-  if (e.target.closest('[data-action="close"]')) closeSection();
+  const action = e.target.closest("[data-action]");
+  if (!action) return;
+  const { crn } = action.dataset;
+  if (action.dataset.action === "close") closeSection();
+  if (action.dataset.action === "star") toggleStar(crn);
+  if (action.dataset.action === "open") openSection(crn);
+  if (action.dataset.action === "copy") copyClassNumbers(action);
 });
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeSection();
