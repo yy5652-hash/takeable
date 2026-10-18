@@ -69,6 +69,14 @@
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  body { background: radial-gradient(1400px 700px at 70% 520px, rgba(80, 120, 255, 0.07), transparent 70%), var(--bg); }
+  .card, .panel, .blocker, .search input { border-color: rgba(255, 255, 255, 0.06); }
+  .card { border: 1px solid rgba(255, 255, 255, 0.06); }
+  .card:hover { border-color: rgba(255, 255, 255, 0.14); }
+  .panel { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), var(--shadow); }
+}
+
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
