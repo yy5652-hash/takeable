@@ -28,11 +28,13 @@ PRD ref: `prd.md > The Core Journey`.
 1. **You open `http://localhost:5173`.**
    - The server sends `public/index.html`, `styles.css` and `app.js`.
    - `app.js` reads your saved situation from local storage. On a first visit it guesses your city from the browser's time zone.
-2. **Term list.** `app.js` calls `GET /api/terms`. The server reads the term dropdown from NYU's class-search page (cached for a day) and returns e.g. `[{id:"1272", name:"January 2027"}, …]`.
+2. **Term list.** `app.js` calls `GET /api/terms`. The server reads the term dropdown from NYU's class-search page and returns e.g. `[{id:"1272", name:"January 2027"}, …]`. The list is kept in `data/cache/terms.json` and answered at once; after a day it is refreshed from NYU in the background. When the page already knows your term, it asks for sections in parallel with the term list.
 3. **Sections.** `app.js` calls `GET /api/sections?term=1272`.
    - **If the cache is fresh** (`data/cache/1272.json`, under 6 hours old), the server returns it at once.
-   - **Otherwise**, the server runs two searches on NYU (undergraduate + online, and undergraduate + blended) and one count of all undergraduate sections. It then fetches details for each section, four at a time.
-   - While it works, it streams progress lines (`{"type":"progress","done":12,"total":55}`), which the summary strip shows as "Checking 12 of 55 sections…". It finishes with one `{"type":"result", …}` line carrying the normalised sections.
+   - **Otherwise**, the server runs two searches on NYU (undergraduate + online, and undergraduate + blended) and one count of all undergraduate sections. Details are fetched six at a time, starting the moment the online search answers; blended sections join the queue when their search lands.
+   - Each progress line carries the sections whose details just arrived (`{"type":"progress","done":12,"total":55,"sections":[…]}`). The page judges them at once, so cards and counts fill in while the summary strip shows "Checking 12 of 55 sections… results appear as they arrive". It finishes with one `{"type":"result", …}` line carrying the full normalised list.
+   - A second visitor who asks for a term already loading joins the same fetch and first receives every section that has arrived so far.
+   - At start-up the server warms the cache for the first two terms in NYU's list (set `TAKEABLE_PREWARM=0` to skip).
    - **If NYU fails**, it streams the snapshot from `data/snapshots/1272.json` with `source: "snapshot"`.
 4. **Judging.** For every section, `app.js` runs `core/verdict.js`, which combines four checks:
    - `core/time.js` converts the meetings and checks them against your class hours
@@ -41,7 +43,7 @@ PRD ref: `prd.md > The Core Journey`.
    - a 0-credit check
 
    `app.js` renders the summary strip and the grouped list.
-5. **Search** filters the already-judged list in memory.
+5. **Search** filters the already-judged list in memory, 90 ms after the last keystroke. "/" focuses the search box and Esc clears it.
 6. **Clicking a row** renders the detail panel from the same section object. The detail data arrived in step 3, so no new request is made.
 7. **Star** writes the class number to local storage. The shortlist panel re-renders with totals; **Copy class numbers** uses the browser clipboard.
 8. **Changing city or hours** saves the situation and re-runs step 4 for all sections, with no network call.
@@ -89,7 +91,7 @@ Carries forward `prd.md > Look and Feel` (revised in the final review).
 | Check | `#8f5d00` on `#fcefd2`, solid `#e3a21a` |
 | Not takeable | `#b0232f` on `#fbe3e5`, solid `#e0484f` |
 
-**Type:** Google Fonts with system fallbacks.
+**Type:** Latin subsets of three Google Fonts, served from `public/fonts/` (SIL Open Font License, `public/fonts/OFL.txt`), with system fallbacks. Self-hosting keeps the first paint free of third-party requests and the type identical offline.
 - Space Grotesk: headline, group titles, panel titles
 - Inter: text
 - JetBrains Mono: course codes, times, counts, clocks
@@ -121,7 +123,8 @@ PRD ref: `prd.md > Data Freshness`, `prd.md > Situation Bar` (term list).
 - `fetchTerms()` parses the `crit-srcdb` options from the class-search page.
 - `searchSections(term, criteria)` and `fetchDetails(term, code, crn)` call the FOSE API.
 - `normalizeSection(searchRow, details)` produces the Section shape in Data Model.
-- Requests run with concurrency 4, a 20-second timeout, and one retry. Cancelled sections (`isCancelled`) are dropped.
+- `loadTerm(term, onProgress)` streams: `onProgress(done, total, section)` fires as each section's details arrive.
+- Requests run with concurrency 6, a 20-second timeout, and one retry. Cancelled sections (`isCancelled`) are dropped.
 
 PRD ref: `prd.md > Data Freshness`.
 
@@ -202,6 +205,13 @@ Owns state:
 
 It renders the Situation Bar, Summary Strip, Section List, Detail Panel, Shortlist and Footer banner, wires the events, and persists `situation` and `starred` to local storage. Esc closes the detail panel.
 
+Rendering stays light on large terms:
+- Verdicts are computed once per situation and reused until the city, hours, home school or data change.
+- While a term loads, ghost cards hold the list's place, and renders are batched every 250 ms.
+- Each verdict group shows its first 40 cards with a "Show all N sections" button. A search lifts the cap.
+- The world map redraws only when the minute, time zone or city changes. Its first draw waits for an idle moment.
+- Cards show the section number next to the course code. Past terms sit in their own group in the term menu.
+
 PRD ref: `prd.md > Situation Bar`, `prd.md > Section List and Search`, `prd.md > Section Details`, `prd.md > Shortlist`, `prd.md > States and Boundaries`.
 
 ## Data Model
@@ -248,6 +258,7 @@ build-with-ai-basics/            # repository root
 │   └── cache.mjs                # data/cache read/write with freshness
 ├── public/
 │   ├── index.html               # page skeleton
+│   ├── fonts.css, fonts/        # self-hosted Latin font subsets + OFL.txt
 │   ├── styles.css               # tokens, light/dark, layout, chips
 │   ├── app.js                   # state, rendering, events, local storage
 │   └── core/                    # pure logic, shared by the page and the tests
@@ -296,7 +307,7 @@ Public, no key, undocumented; used gently with caching.
 ```
 - Response includes `college`, `hours_html` (e.g. "1.5 Hour Lecture"), `instructional_method`, `campus_location`, `description`, `meeting_html`, `dates_html`, `clssnotes` (HTML).
 
-**Limits.** No published rate limit. We use four concurrent requests, a `User-Agent` naming the project, and a 6-hour cache. Cost: free.
+**Limits.** No published rate limit. We use six concurrent requests, a `User-Agent` naming the project, and a 6-hour cache. Cost: free.
 
 ### Stern policy page (cited, not fetched at runtime)
 https://www.stern.nyu.edu/current-students/undergraduate/academics/minors-and-electives (checked 2026-10-15).
@@ -317,7 +328,7 @@ https://www.stern.nyu.edu/current-students/undergraduate/academics/minors-and-el
 **Decisions.** The learner delegated technical choices. These are agent recommendations, accepted on approval:
 - **No-dependency Node server + plain JS page:** smallest surface that runs anywhere Node runs. Tradeoff: hand-written DOM.
 - **Judging in the browser:** instant re-sorting when the city or hours change. Tradeoff: the full section list is sent to the page (a few hundred KB for the largest term).
-- **Streamed progress for first fetches:** the first load of a large term takes a minute or two, and silence would look broken.
+- **Streamed results for first fetches:** the first load of a large term takes a minute or two, so each section reaches the page as soon as its details arrive and the list fills in while it loads.
 
 **Learner unknown.** The learner's stated learning goal is working well with an AI agent, not a technical topic. No technical uncertainty was raised, because they delegated the choices. The genuine unknown is in the data, and it gets a small investigation in build slice 1. A script prints, across a full term:
 - how `hours_html` reads for known courses

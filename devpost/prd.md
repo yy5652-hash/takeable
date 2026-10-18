@@ -70,7 +70,7 @@ Revised in the final review at the learner's request for a bolder visual design.
 - **Verdict colour plus symbol and word**, never colour alone. Takeable is ✓ green, Check is ? amber, Not takeable is ✕ red. Each card also carries a coloured edge stripe.
 - **Detail panel** shows a seven-day chart of the student's week, then the exact times in both cities.
 - **Shortlist styled as a boarding pass:** navy header, perforated divider, total credits in large figures.
-- **Type:** Space Grotesk for headlines, Inter for text, JetBrains Mono for codes, times and counts. Falls back to system fonts offline.
+- **Type:** Space Grotesk for headlines, Inter for text, JetBrains Mono for codes, times and counts. The fonts ship with the app, so the type is the same offline.
 - **Light page under a dark board;** dark mode follows the system setting.
 - **Not NYU-branded:** no logo, no violet. The footer credits NYU's public class search with the fetch time.
 - **Copy tone:** plain and direct. "Outside your class hours (8:00 am – 11:00 pm)", "Meets 2:00 – 5:50 am your time".

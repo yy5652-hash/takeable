@@ -195,6 +195,7 @@ button { font: inherit; }
 .tile[aria-pressed="true"] .sub::after { content: " · showing only these"; color: var(--board-ink); }
 .board-note { grid-column: 1 / -1; font-size: 13px; color: var(--board-muted); margin-top: 2px; }
 .loading { grid-column: 1 / -1; display: grid; gap: 10px; padding: 14px 0 4px; color: #d9dfea; }
+.loading .hint { font-size: 13px; color: var(--board-muted); }
 .loading progress {
   width: 100%; max-width: 420px; height: 6px; border-radius: 999px; overflow: hidden;
   appearance: none; -webkit-appearance: none; border: none; background: var(--board-line);
@@ -264,6 +265,7 @@ button { font: inherit; }
   background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 7px; white-space: nowrap;
 }
 .title { font-weight: 650; font-size: 15.5px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.meta .sec { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .why { display: flex; gap: 7px; align-items: baseline; font-size: 13.5px; color: var(--muted); }
 .why .mark { font-weight: 800; font-size: 12px; }
 .why.fail { color: var(--no); }
@@ -416,6 +418,17 @@ blockquote {
   padding: 8px 15px; border-radius: 999px; cursor: pointer; white-space: nowrap;
 }
 .ghost:hover { background: var(--ink); color: var(--surface); }
+.more {
+  margin-top: 10px; width: 100%; padding: 12px; border-radius: 12px; border: 1px dashed var(--line);
+  background: transparent; color: var(--ink); font-weight: 600; cursor: pointer;
+}
+.more:hover { background: var(--surface); }
+.skeleton { margin-top: 26px; }
+.ghost-card { height: 108px; cursor: default; background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 50%, var(--surface) 100%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+.ghost-card::before { display: none; }
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .ghost-card { animation: none; } .tile, .card { transition: none; } }
+
 .empty {
   margin-top: 22px; padding: 30px; text-align: center; color: var(--muted);
   background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);

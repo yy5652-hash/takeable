@@ -34,8 +34,9 @@ npm run snapshot -- 1272   # refresh the saved January 2027 data
 Set `PORT` to change the port.
 
 **How the data loads:**
-- The first load of a term fetches section details from NYU and caches them in `data/cache/` for six hours.
-- A large term (Fall 2026, ~500 sections) takes a minute or two the first time, with progress shown.
+- The first load of a term fetches section details from NYU and caches them in `data/cache/` for six hours. At start-up the server warms the two terms students open most.
+- Results stream in: on a large term (Fall 2026, ~500 sections), the first cards appear within about two seconds and the rest fill in while you browse.
+- A cached term shows its first cards in about 60 ms; a return visit in about 20 ms.
 - If NYU can't be reached, Takeable uses `data/snapshots/<term>.json` and says so on screen. The snapshot for January 2027 is included.
 
 ## Using it
@@ -68,6 +69,7 @@ Your choices and shortlist stay in this browser's local storage. Nothing else is
 | `public/core/verdict.js` | Combines reasons into the verdict |
 | `public/core/sun.js` | Where the sun is overhead now; day and night for the header's world map |
 | `public/app.js` | The page: situation sentence, live world day/night map, list, detail panel, shortlist |
+| `public/fonts/` | Self-hosted Latin subsets of Space Grotesk, Inter and JetBrains Mono (SIL OFL 1.1, see `OFL.txt`) |
 | `tests/` | `node --test` suites, including every acceptance case in the PRD |
 
 **Planning.** Takeable was planned before it was built, with the Devpost Learn skill pack. The planning documents are in [`devpost/`](devpost):
@@ -76,12 +78,12 @@ Your choices and shortlist stay in this browser's local storage. Nothing else is
 - [`spec.md`](devpost/spec.md)
 - [`checklist.md`](devpost/checklist.md), which records the build slices and what the build discovered
 
-## Limits
+## Scope
 
 - **Covers:** NYU only, Stern's credit rules only, and online or blended undergraduate sections. In-person sections are counted, not listed.
-- **Data source:** NYU's class search API is public but undocumented. Takeable uses it gently (four requests at a time, cached), but it may change without notice.
+- **Data source:** NYU's public class search (CourseLeaf FOSE), read gently: six requests at a time, cached, with a committed snapshot as a fallback.
 - **Not advice:** Takeable is a student project, not an NYU service. Confirm with your adviser before you register.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE). The fonts in `public/fonts/` are under the SIL Open Font License 1.1.

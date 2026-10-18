@@ -24,6 +24,9 @@ const state = {
   error: "",
   search: "",
   filter: null, // one verdict group, or null for all
+  partial: [], // sections that have arrived while a term is still loading
+  version: 0, // bumps whenever the section data changes, for the verdict cache
+  expanded: {}, // verdict groups the student asked to see in full
   open: null, // class number of the section shown in the detail panel
   sheetOpen: false, // shortlist expanded on narrow screens
   starred: loadStored(STORE.starred, () => ({}), (v) => v && typeof v === "object" && !Array.isArray(v)), // { term: [crn] }
@@ -103,7 +106,10 @@ function fillSituationControls() {
 }
 
 function fillTerms() {
-  $("term").innerHTML = state.terms.map((t) => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join("");
+  // NYU lists the upcoming and current terms first; older ones are kept, but out of the way.
+  const opt = (t) => `<option value="${t.id}">${escapeHtml(t.name)}</option>`;
+  const now = state.terms.slice(0, 2), past = state.terms.slice(2);
+  $("term").innerHTML = now.map(opt).join("") + (past.length ? `<optgroup label="Past terms">${past.map(opt).join("")}</optgroup>` : "");
   if (!state.terms.some((t) => t.id === state.situation.term)) state.situation.term = state.terms[0]?.id || "";
   $("term").value = state.situation.term;
 }
@@ -157,7 +163,16 @@ const MAP = { w: 360, h: 136, top: 80 };   // equirectangular, longitude -180…
 const mapX = (lon) => lon + 180;
 const mapY = (lat) => MAP.top - lat;
 
+let mapKey = "";
 function renderMap(now) {
+  const key = `${Math.floor(now / 60000)}|${state.situation.tz}|${state.situation.cityLabel}`;
+  if (key === mapKey) return;
+  if (!mapKey) {                                     // first draw: after the page has painted
+    mapKey = "pending";
+    return (window.requestIdleCallback || setTimeout)(() => { mapKey = "first"; renderMap(Date.now()); }, { timeout: 400 });
+  }
+  if (mapKey === "pending") return;
+  mapKey = key;
   const sun = subsolarPoint(now);
   let day = "", dusk = "", night = "";
   for (let i = 0; i < LAND_DOTS.length; i += 2) {
@@ -218,6 +233,8 @@ async function loadSections() {
   const term = state.situation.term;
   if (!term) return;
   state.data = null;
+  state.partial = [];
+  state.version++;
   state.error = "";
   state.open = null;
   state.loading = { done: 0, total: 0 };
@@ -251,10 +268,16 @@ async function loadSections() {
 function handleLine(msg, term) {
   if (state.situation.term !== term) return; // the student switched terms meanwhile
   if (msg.type === "progress") {
-    state.loading = { done: msg.done, total: msg.total };
-    renderSummary();
+    state.loading = { done: msg.done ?? state.loading.done, total: msg.total ?? state.loading.total };
+    if (msg.sections?.length) {
+      state.partial.push(...msg.sections);
+      state.version++;
+    }
+    scheduleRender();
   } else if (msg.type === "result") {
     state.data = msg;
+    state.partial = [];
+    state.version++;
   } else if (msg.type === "error") {
     state.error = msg.message;
   }
@@ -262,12 +285,39 @@ function handleLine(msg, term) {
 
 // ---------- Rendering ----------
 
+// What is on screen: the finished term, or what has arrived so far while it loads.
+function currentSections() {
+  return state.data?.sections || (state.partial.length ? state.partial : null);
+}
+
+// Verdicts are worked out once per (data, situation) and reused by search, filters and counts.
+let verdictCache = { key: "", all: [] };
+function judgedAll() {
+  const { homeSchool, tz, window } = state.situation;
+  const key = `${state.version}|${homeSchool}|${tz}|${window.earliest}|${window.latest}`;
+  if (verdictCache.key !== key) {
+    const all = (currentSections() || []).map((s) => ({ section: s, haystack: `${s.code} ${s.title} ${s.subject}`.toLowerCase(), ...judge(s, state.situation) }));
+    all.sort((a, b) => a.section.code.localeCompare(b.section.code, "en", { numeric: true }) || a.section.section.localeCompare(b.section.section, "en", { numeric: true }));
+    verdictCache = { key, all };
+  }
+  return verdictCache.all;
+}
+
 function judged() {
-  if (!state.data) return [];
   const q = state.search.trim().toLowerCase();
-  return state.data.sections
-    .filter((s) => !q || `${s.code} ${s.title} ${s.subject}`.toLowerCase().includes(q))
-    .map((s) => ({ section: s, ...judge(s, state.situation) }));
+  const all = judgedAll();
+  return q ? all.filter((i) => i.haystack.includes(q)) : all;
+}
+
+// Streaming sections arrive many times a second; the page redraws at most every quarter second.
+let renderTimer = null;
+function scheduleRender() {
+  if (renderTimer) return;
+  renderTimer = setTimeout(() => {
+    renderTimer = null;
+    renderSummary();
+    renderList();
+  }, 250);
 }
 
 function render() {
@@ -293,20 +343,22 @@ function renderBanner() {
 
 function renderSummary() {
   const el = $("summary");
-  if (state.loading) {
-    const { done, total } = state.loading;
-    el.innerHTML = `<div class="loading"><span>${total ? `Checking ${done} of ${total} sections with NYU…` : "Asking NYU for this term's sections…"}</span>${
-      total ? `<progress max="${total}" value="${done}" aria-label="Sections checked"></progress>` : ""
-    }</div>`;
-    return;
-  }
-  if (!state.data) {
-    el.innerHTML = "";
+  const progress = state.loading
+    ? `<div class="loading"><span>${
+        state.loading.total
+          ? `Checking ${state.loading.done} of ${state.loading.total} sections with NYU${state.partial.length ? " — results appear as they arrive" : "…"}`
+          : "Asking NYU for this term's sections…"
+      }</span>${state.loading.total ? `<progress max="${state.loading.total}" value="${state.loading.done}" aria-label="Sections checked"></progress>` : ""}${
+        !state.partial.length ? `<span class="hint">The first look at a term takes a moment; after that it opens instantly.</span>` : ""
+      }</div>`
+    : "";
+  if (!currentSections()) {
+    el.innerHTML = progress;
     return;
   }
   const items = judged();
   const counts = Object.fromEntries(GROUP_ORDER.map((v) => [v, items.filter((i) => i.verdict === v).length]));
-  const hidden = state.data.inPersonHidden;
+  const hidden = state.data?.inPersonHidden;
   const away = state.situation.tz !== NY_TZ;
   el.innerHTML =
     GROUP_ORDER.map(
@@ -318,12 +370,13 @@ function renderSummary() {
     ).join("") +
     (hidden
       ? `<p class="board-note">+ ${hidden} in-person sections ${away ? `hidden — you'll be in ${escapeHtml(state.situation.cityLabel)}` : "not listed — Takeable covers remote study"}.</p>`
-      : "");
+      : "") +
+    progress;
 }
 
 // When nothing is fully takeable, say what's blocking most sections and offer the obvious fix.
 function blockerHtml(items) {
-  if (state.search.trim() || state.filter || items.some((i) => i.verdict === "takeable")) return "";
+  if (state.loading || state.search.trim() || state.filter || items.some((i) => i.verdict === "takeable")) return "";
   const blocked = items.filter((i) => i.verdict === "no");
   if (!blocked.length) return "";
   const byTime = blocked.filter((i) => i.reasons.some((r) => r.kind === "time" && r.level === "fail" && r.schedule));
@@ -359,23 +412,27 @@ function renderList() {
     el.innerHTML = `<div class="empty">${escapeHtml(state.error)}</div>`;
     return;
   }
-  if (!state.data) {
-    el.innerHTML = "";
+  if (!currentSections()) {
+    el.innerHTML = state.loading ? `<ul class="cards skeleton" aria-hidden="true">${'<li class="card ghost-card"></li>'.repeat(4)}</ul>` : "";
     return;
   }
   const items = judged();
   if (!items.length) {
-    el.innerHTML = `<div class="empty">No sections match “${escapeHtml(state.search)}” this term.</div>`;
+    el.innerHTML = state.loading ? "" : `<div class="empty">No sections match “${escapeHtml(state.search)}” this term.</div>`;
     return;
   }
+  const LIMIT = 40;
   const groups = state.filter ? [state.filter] : GROUP_ORDER;
   const html = groups
     .map((v) => {
-      const group = items.filter((i) => i.verdict === v).sort((a, b) => a.section.code.localeCompare(b.section.code, "en", { numeric: true }));
+      const group = items.filter((i) => i.verdict === v);
       if (!group.length) return "";
+      const shown = state.expanded[v] || state.search.trim() ? group : group.slice(0, LIMIT);
+      const more = group.length - shown.length;
       return `<section class="group">
         <div class="group-head ${v}"><span class="dot"></span><h2>${VERDICTS[v].label}</h2><span class="n">${group.length}</span></div>
-        <ul class="cards">${group.map(cardHtml).join("")}</ul>
+        <ul class="cards">${shown.map(cardHtml).join("")}</ul>
+        ${more > 0 ? `<button type="button" class="more" data-action="expand" data-group="${v}">Show all ${group.length} ${VERDICTS[v].label.toLowerCase()} sections</button>` : ""}
       </section>`;
     })
     .join("");
@@ -397,9 +454,10 @@ function cardHtml({ section: s, verdict, reasons }) {
   const top = reasons.find((r) => !(r.kind === "time" && r.level === "pass")) || reasons[0];
   const text = top.kind === "time" && top.level === "fail" && top.schedule ? `Outside your class hours (${windowText()})` : top.text;
   const school = schoolOf(s);
-  return `<li class="card ${verdict}${s.crn === state.open ? " open" : ""}" tabindex="0" data-crn="${s.crn}">
+  const label = `${s.code}, ${s.title}. ${VERDICTS[verdict].label}: ${text}. Press Enter for details.`;
+  return `<li class="card ${verdict}${s.crn === state.open ? " open" : ""}" tabindex="0" data-crn="${s.crn}" aria-label="${escapeHtml(label)}">
     <div class="info">
-      <div class="meta"><span class="code">${escapeHtml(s.code)}</span><span>${escapeHtml(school.short || school.name)} · ${escapeHtml(
+      <div class="meta"><span class="code">${escapeHtml(s.code)}</span><span class="sec" title="Section">§ ${escapeHtml(s.section)}</span><span>${escapeHtml(school.short || school.name)} · ${escapeHtml(
         creditsText(s.credits),
       )} cr · ${s.mode === "blended" ? "Blended" : "Online"}</span></div>
       <div class="title">${escapeHtml(s.title)}</div>
@@ -539,7 +597,7 @@ function toggleStar(crn) {
 function shortlistHtml() {
   const termName = state.terms.find((t) => t.id === state.situation.term)?.name || "";
   const sections = starredList()
-    .map((crn) => state.data?.sections.find((s) => s.crn === crn))
+    .map((crn) => currentSections()?.find((s) => s.crn === crn))
     .filter(Boolean);
   const head = `<div class="pass-head"><button type="button" class="sheet-toggle" data-action="sheet" aria-expanded="${state.sheetOpen}">
       <span><span class="kicker">Your shortlist</span><span class="pass-title">${escapeHtml(termName || "This term")}</span></span>
@@ -578,7 +636,7 @@ function shortlistHtml() {
 
 async function copyClassNumbers(button) {
   const text = starredList()
-    .filter((crn) => state.data?.sections.some((s) => s.crn === crn))
+    .filter((crn) => currentSections()?.some((s) => s.crn === crn))
     .join(", ");
   let ok = false;
   try {
@@ -599,7 +657,7 @@ async function copyClassNumbers(button) {
 
 function renderSide() {
   const el = $("side");
-  const section = state.open && state.data?.sections.find((s) => s.crn === state.open);
+  const section = state.open && currentSections()?.find((s) => s.crn === state.open);
   document.body.classList.toggle("detail-open", Boolean(section));
   document.body.classList.toggle("sheet-open", !section && state.sheetOpen);
   el.innerHTML = section ? detailHtml(section) : shortlistHtml();
@@ -725,10 +783,23 @@ export function escapeHtml(s) {
 
 $("situation").addEventListener("change", onSituationChange);
 $("situation").addEventListener("submit", (e) => e.preventDefault());
+let searchTimer = null;
 $("search").addEventListener("input", (e) => {
   state.search = e.target.value;
-  renderSummary();
-  renderList();
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    renderSummary();
+    renderList();
+  }, 90);
+});
+$("search").addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && e.target.value) {
+    e.stopPropagation();
+    e.target.value = "";
+    state.search = "";
+    renderSummary();
+    renderList();
+  }
 });
 $("summary").addEventListener("click", (e) => {
   const tile = e.target.closest("[data-filter]");
@@ -745,6 +816,11 @@ $("filterNote").addEventListener("click", (e) => {
 });
 $("list").addEventListener("click", (e) => {
   if (e.target.closest('[data-action="widen"]')) return widenHours();
+  const expand = e.target.closest('[data-action="expand"]');
+  if (expand) {
+    state.expanded[expand.dataset.group] = true;
+    return renderList();
+  }
   const star = e.target.closest('[data-action="star"]');
   if (star) {
     toggleStar(star.dataset.crn);
@@ -777,11 +853,21 @@ $("side").addEventListener("click", (e) => {
 });
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeSection();
+  const typing = /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement?.tagName || "");
+  if (e.key === "/" && !typing) {
+    e.preventDefault();
+    $("search").focus();
+  }
 });
 
 fillSituationControls();
-renderClocks();
 setInterval(renderClocks, 20_000);
+// A returning student already has a term: ask for its sections straight away, alongside the term list.
+const knownTerm = state.situation.term;
+if (knownTerm) {
+  $("term").innerHTML = `<option value="${escapeHtml(knownTerm)}">…</option>`;
+  loadSections();
+}
 await loadTerms();
-render();
-loadSections();
+if (!knownTerm || state.situation.term !== knownTerm) loadSections();
+else render();

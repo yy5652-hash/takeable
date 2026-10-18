@@ -157,3 +157,8 @@ Activity mode: recap
 - Dates on the page are always formatted in US English. The browser's own locale had put Chinese dates into the English interface.
 - Visual design reworked in the final review at the learner's request, and `prd.md > Look and Feel` and `spec.md > Look and Feel` rewritten to match. Behaviour and verdicts are unchanged and the 26 tests still pass. Changes: departure-board header, live clocks, filtering count tiles, 24-hour bars on cards, week chart in the detail panel, boarding-pass shortlist, and short school names on cards.
 - Live world day/night map added to the header, with real sun position (`public/core/sun.js`, 4 tests) and Natural Earth land dots. The learner asked to raise the visual impact of the film and the app together.
+- Speed pass after hands-on testing in a real browser, measured in headless Chromium at 1440×900:
+  - Fonts are self-hosted and the term list is cached on disk. A cached term shows its first cards after 57 ms, and a return visit after 19 ms, with no long tasks.
+  - `/api/sections` streams each section as its details arrive, six requests at a time. Fall 2026's first load shows cards within about two seconds and fills in while the student browses.
+  - Verdicts are memoised and groups show 40 cards with "Show all N". On Fall 2026, changing city takes 42 ms of main-thread time, down from 168 ms.
+  - Cards show the section number, past terms are grouped in the term menu, "/" focuses search, and Esc clears it. All 30 tests still pass.
