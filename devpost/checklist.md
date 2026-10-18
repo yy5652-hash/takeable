@@ -117,11 +117,11 @@ Build mode: fast
 - [x] Early usable behavior explored — after slice 2 (full verdict on real data), before detail, search and shortlist are built on top of it
   Learner tried Beijing → 6:30 am → London on January 2027: "判定和理由都说得通，没有要改的" (verdicts and reasons make sense, nothing to change).
 - [x] Final kick-the-tires exploration and feedback completed
-  First look: "太丑了优化ui" (too ugly, improve the UI). After the redesign: "新版可以了，确认可以交付" (the new version works, confirmed ready to ship).
+  First look: asked for a bolder visual design. After the redesign: "新版可以了，确认可以交付" (the new version works, confirmed ready to ship).
 
 ## Final Review
 
-Learner feedback from the final hands-on look: "太丑了优化ui" (too ugly — improve the UI). Visual direction was delegated to the agent in planning, so the agent proposes a redesign for the learner to judge.
+Learner feedback from the final hands-on look: asked for a bolder visual design ("优化ui"). Visual direction was delegated to the agent in planning, so the agent proposed a redesign for the learner to judge.
 
 - [x] Redesign the interface. Planned changes:
   - a dark departure-board header with live New York and local clocks
@@ -155,4 +155,5 @@ Activity mode: recap
 - Rows lead with the first reason that isn't a passing time, because the time column already shows it.
 - The "nothing takeable" message measures start times around the middle of the student's class hours. Sorting raw clock times split overnight classes at midnight and produced "most start between 1:30 am and 10:30 pm"; it now reads "between 11:00 pm and 2:00 am in Beijing".
 - Dates on the page are always formatted in US English. The browser's own locale had put Chinese dates into the English interface.
-- Visual design reworked after the final review ("太丑了优化ui"), and `prd.md > Look and Feel` and `spec.md > Look and Feel` rewritten to match. Behaviour and verdicts are unchanged and the 26 tests still pass. Changes: departure-board header, live clocks, filtering count tiles, 24-hour bars on cards, week chart in the detail panel, boarding-pass shortlist, and short school names on cards.
+- Visual design reworked in the final review at the learner's request, and `prd.md > Look and Feel` and `spec.md > Look and Feel` rewritten to match. Behaviour and verdicts are unchanged and the 26 tests still pass. Changes: departure-board header, live clocks, filtering count tiles, 24-hour bars on cards, week chart in the detail panel, boarding-pass shortlist, and short school names on cards.
+- Live world day/night map added to the header, with real sun position (`public/core/sun.js`, 4 tests) and Natural Earth land dots. The learner asked to raise the visual impact of the film and the app together.

@@ -135,15 +135,45 @@ button { font: inherit; }
   font-size: 12px; color: var(--board-muted); border: 1px dashed var(--board-line); padding: 0 9px; border-radius: 999px; line-height: 1.9;
 }
 
+/* World map: day and night right now, behind the headline */
+.board-inner { position: relative; }
+.board-inner > :not(.worldmap) { position: relative; z-index: 1; }
+.worldmap {
+  position: absolute; right: 0; top: 70px; width: 800px; height: 302px; pointer-events: none; z-index: 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 30%, #000 92%, transparent 100%);
+}
+.worldmap svg { width: 100%; height: 100%; overflow: visible; }
+.worldmap .nightside { fill: #01040c; opacity: 0.62; }
+.worldmap .dots.day { fill: #ffd88a; opacity: 0.7; }
+.worldmap .dots.dusk { fill: #f0a35e; opacity: 0.55; }
+.worldmap .dots.night { fill: #7091ea; opacity: 0.38; }
+.worldmap .arc { fill: none; stroke: var(--amber); stroke-width: 0.9; stroke-dasharray: 2.4 1.8; opacity: 0.95; }
+.worldmap .pin .halo { fill: var(--amber); opacity: 0.2; }
+.worldmap .pin .core { fill: #fff; stroke: var(--amber); stroke-width: 0.8; }
+.worldmap .pin.you .core { fill: var(--amber); stroke: #fff; }
+.worldmap .pin text {
+  font: 700 6.4px var(--mono); fill: #f3efe6; letter-spacing: 0.02em;
+  paint-order: stroke; stroke: rgba(10, 17, 30, 0.9); stroke-width: 1.8px;
+}
+
 /* Scoreboard tiles */
 .scoreboard { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
 .tile {
-  text-align: left; cursor: pointer; color: var(--board-ink);
-  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--board-line); border-radius: 14px;
+  text-align: left; cursor: pointer; color: var(--board-ink); position: relative; overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 40px rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--board-line); border-radius: 14px;
   padding: 14px 16px 13px; display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center;
   transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
 }
-.tile:hover { background: rgba(255, 255, 255, 0.07); transform: translateY(-1px); }
+.tile:hover { background: rgba(255, 255, 255, 0.09); transform: translateY(-1px); }
+.tile::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; opacity: 0.9; }
+.tile.takeable::before { background: linear-gradient(90deg, transparent, #5fd78f, transparent); }
+.tile.check::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+.tile.no::before { background: linear-gradient(90deg, transparent, #ff7d84, transparent); }
+.tile .num { text-shadow: 0 0 24px currentColor; }
 .tile .num { grid-row: span 2; font-family: var(--mono); font-weight: 700; font-size: 40px; line-height: 1; }
 .tile .label { font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; }
 .tile .sub { font-size: 13px; color: var(--board-muted); }
@@ -266,8 +296,8 @@ button { font: inherit; }
   border-left: 1.5px dashed var(--window-edge); border-right: 1.5px dashed var(--window-edge);
 }
 .dial .block { position: absolute; top: 3px; bottom: 3px; border-radius: 4px; min-width: 3px; }
-.dial .block.fit { background: var(--ok-solid); }
-.dial .block.miss { background: var(--no-solid); }
+.dial .block.fit { background: linear-gradient(180deg, #34c06e, var(--ok-solid)); box-shadow: 0 0 10px rgba(34, 160, 90, 0.55); }
+.dial .block.miss { background: linear-gradient(180deg, #f2646a, var(--no-solid)); box-shadow: 0 0 10px rgba(224, 72, 79, 0.55); }
 .dial .block.anytime {
   left: 0; right: 0; top: 7px; bottom: 7px; border-radius: 999px; opacity: 0.85;
   background: repeating-linear-gradient(90deg, var(--ok-solid) 0 6px, transparent 6px 10px);
@@ -410,6 +440,9 @@ blockquote {
   .sheet-toggle::after { content: "▴"; color: var(--board-muted); margin-left: auto; }
   body.sheet-open .sheet-toggle::after { content: "▾"; }
   .footer { padding-bottom: 110px; }
+}
+@media (max-width: 760px) {
+  .worldmap { display: none; }
 }
 @media (max-width: 640px) {
   .board-inner { padding: 18px 16px 20px; }

@@ -53,11 +53,12 @@ One page, no navigation:
 - **Detail panel:** slides over the right column. Esc or a close button returns to the shortlist.
 
 ## Look and Feel
-Revised in the final review after the learner judged the first version "too ugly".
+Revised in the final review at the learner's request for a bolder visual design.
 - **Departure board.** A dark navy header (the "board") holds:
   - the headline "Online doesn't mean you can take it."
   - the situation sentence with amber, underlined choices
   - live clocks for New York and the student's city, with a moon after 10 pm
+  - a live world map of day and night: land as dots, the real terminator for the current moment, and pins for New York and the student's city joined by an arc
   - three large verdict count tiles that filter the list when clicked
 - **A 24-hour bar on every course card**, on the student's clock:
   - night hours shaded

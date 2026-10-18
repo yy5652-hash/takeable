@@ -3,6 +3,8 @@ import { DAY_NAMES, NY_TZ, describeSchedule, fitsWindow, formatClock, formatRang
 import { VERDICTS, judge } from "./core/verdict.js";
 import { schoolOf } from "./core/schools.js";
 import { readNote } from "./core/notes.js";
+import { subsolarPoint, sunElevation, terminatorLat } from "./core/sun.js";
+import { LAND_DOTS } from "./core/land-dots.js";
 
 const $ = (id) => document.getElementById(id);
 const GROUP_ORDER = ["takeable", "check", "no"];
@@ -146,6 +148,58 @@ function renderClocks() {
   };
   const { tz, cityLabel } = state.situation;
   $("clocks").innerHTML = tz === NY_TZ ? clock("New York", NY_TZ, true) : clock("New York", NY_TZ, false) + clock(cityLabel, tz, true);
+  renderMap(now);
+}
+
+// ---------- World map: where it is day and night right now ----------
+
+const MAP = { w: 360, h: 136, top: 80 };   // equirectangular, longitude -180…180, latitude 80…-56
+const mapX = (lon) => lon + 180;
+const mapY = (lat) => MAP.top - lat;
+
+function renderMap(now) {
+  const sun = subsolarPoint(now);
+  let day = "", dusk = "", night = "";
+  for (let i = 0; i < LAND_DOTS.length; i += 2) {
+    const lon = LAND_DOTS[i], lat = LAND_DOTS[i + 1];
+    const e = sunElevation(lat, lon, sun);
+    const dot = `<circle cx="${mapX(lon)}" cy="${mapY(lat)}" r="0.62"/>`;
+    if (e > 4) day += dot;
+    else if (e > -6) dusk += dot;
+    else night += dot;
+  }
+  // the night side, bounded by the terminator and closed over the pole that is in darkness
+  const pts = [];
+  for (let lon = -180; lon <= 180; lon += 3) pts.push(`${mapX(lon)},${mapY(Math.max(-56, Math.min(80, terminatorLat(lon, sun))))}`);
+  const pole = sun.lat < 0 ? 0 : MAP.h;
+  const shade = `M0,${pole} L${pts.join(" L")} L${MAP.w},${pole} Z`;
+  const you = CITIES.find((c) => c.tz === state.situation.tz && c.label === state.situation.cityLabel) || CITIES.find((c) => c.tz === state.situation.tz);
+  const ny = CITIES[0];
+  const pin = (c, cls, label) => {
+    const x = mapX(c.lon), y = mapY(c.lat);
+    const lit = sunElevation(c.lat, c.lon, sun) > 0;
+    const anchor = x > 250 ? "end" : "start";
+    const dx = anchor === "end" ? -6 : 6;
+    return `<g class="pin ${cls}"><circle class="halo" cx="${x}" cy="${y}" r="5"/><circle class="core" cx="${x}" cy="${y}" r="1.9"/>
+      <text x="${x + dx}" y="${y - 4}" text-anchor="${anchor}">${escapeHtml(label)} ${lit ? "☀" : "☾"}</text></g>`;
+  };
+  let arc = "";
+  if (you && you !== ny) {
+    const [x1, y1, x2, y2] = [mapX(ny.lon), mapY(ny.lat), mapX(you.lon), mapY(you.lat)];
+    arc = `<path class="arc" d="M${x1},${y1} Q${(x1 + x2) / 2},${Math.min(y1, y2) - Math.abs(x2 - x1) * 0.22} ${x2},${y2}"/>`;
+  }
+  $("worldmap").innerHTML = `<svg viewBox="0 0 ${MAP.w} ${MAP.h}" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="soft" x="-5%" y="-20%" width="110%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>
+      <radialGradient id="sunglow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".55"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+    </defs>
+    <circle cx="${mapX(sun.lon)}" cy="${mapY(sun.lat)}" r="38" fill="url(#sunglow)"/>
+    <path class="nightside" d="${shade}" filter="url(#soft)"/>
+    <g class="dots night">${night}</g><g class="dots dusk">${dusk}</g><g class="dots day">${day}</g>
+    ${arc}
+    ${you && you !== ny ? pin(ny, "ny", "New York") : ""}
+    ${you ? pin(you, "you", you.label) : ""}
+  </svg>`;
 }
 
 // ---------- Data ----------

@@ -27,7 +27,7 @@ Requires Node.js 20 or newer. No dependencies, accounts or API keys.
 
 ```bash
 npm start          # http://localhost:5173
-npm test           # unit tests for time conversion, notes, credit rules and verdicts
+npm test           # unit tests: time conversion, notes, credit rules, verdicts, sun position
 npm run snapshot -- 1272   # refresh the saved January 2027 data
 ```
 
@@ -66,7 +66,8 @@ Your choices and shortlist stay in this browser's local storage. Nothing else is
 | `public/core/notes.js` | Synchronous/asynchronous signals and restriction sentences in NYU notes |
 | `public/core/schools.js` | Course-code suffix → school; Stern credit rules with source |
 | `public/core/verdict.js` | Combines reasons into the verdict |
-| `public/app.js` | The page: situation sentence, list, detail panel, shortlist |
+| `public/core/sun.js` | Where the sun is overhead now; day and night for the header's world map |
+| `public/app.js` | The page: situation sentence, live world day/night map, list, detail panel, shortlist |
 | `tests/` | `node --test` suites, including every acceptance case in the PRD |
 
 **Planning.** Takeable was planned before it was built, with the Devpost Learn skill pack. The planning documents are in [`devpost/`](devpost):

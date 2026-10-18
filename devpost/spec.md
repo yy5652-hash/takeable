@@ -70,7 +70,7 @@ PRD ref: `prd.md > The Core Journey`.
   - star two sections and copy their class numbers
 - **Submission:** needs a short demo video and a public GitHub repository. Deployment is optional and not planned. If chosen later, any Node host works, since the server has no dependencies.
 - **Public repository:** https://github.com/yy5652-hash/takeable (public, MIT license detected by GitHub; checked without signing in on 2026-10-16).
-- **Demo video:** final cut v1 approved by the learner on 2026-10-16. It is 2:00.6, 1080p, with captions in an .srt, and is not uploaded yet. It is built from real recordings of this app. The production files are outside the repository, in `takeable-film/`.
+- **Demo video:** 2:00, 1080p, with captions, built from real recordings of this app. The production files are outside this repository, in `takeable-film/`. The link is added when it is uploaded.
 
 ## Look and Feel
 Carries forward `prd.md > Look and Feel` (revised in the final review).
@@ -100,6 +100,12 @@ Carries forward `prd.md > Look and Feel` (revised in the final review).
 - Each distinct meeting range is a block, coloured with `fitsWindow`. A block that crosses midnight is drawn in two parts.
 - Asynchronous sections get a striped full-width line.
 - The detail panel repeats the bar for Mon–Sun (`weekHtml`).
+
+**World map (`renderMap` in `public/app.js`):**
+- 3,819 land dots every 2° from Natural Earth 1:110m (public domain, via world-atlas, ISC), in `public/core/land-dots.js`.
+- Each dot is coloured day, dusk or night by the sun's elevation there now (`public/core/sun.js`).
+- The night side is shaded up to the terminator.
+- Pins for New York and the student's city, joined by an arc. A glow marks the point under the sun.
 
 **Layout:** board header, then a two-column page (cards on the left, shortlist or detail panel on the right, sticky). Below 900px the side becomes a bottom sheet.
 
@@ -178,8 +184,12 @@ PRD ref: `prd.md > Takeability Verdict` (Credit at home school).
 
 PRD ref: `prd.md > Takeability Verdict`.
 
+### Sun Position (`public/core/sun.js`)
+`subsolarPoint(ms)` gives where the sun is overhead, from the U.S. Naval Observatory's low-precision almanac formulas. `sunElevation(lat, lon, sun)` says whether a place is in daylight; `terminatorLat(lon, sun)` traces the day/night line. Tested against the June solstice and the film's moment (Jan 4, 2027, 14:00 UTC: day in New York and London, night in Beijing).
+PRD ref: `prd.md > Look and Feel`.
+
 ### City List (`public/core/cities.js`)
-The PRD's city list mapped to IANA zones, plus `Intl.supportedValuesOf("timeZone")` for "Other time zone…". It also guesses the city from the browser's own time zone.
+The PRD's city list mapped to IANA zones and coordinates, plus `Intl.supportedValuesOf("timeZone")` for "Other time zone…". It also guesses the city from the browser's own time zone.
 PRD ref: `prd.md > Situation Bar`.
 
 ### Page (`public/index.html`, `public/app.js`, `public/styles.css`)
@@ -245,7 +255,9 @@ build-with-ai-basics/            # repository root
 │       ├── notes.js
 │       ├── schools.js
 │       ├── verdict.js
-│       └── cities.js
+│       ├── cities.js
+│       ├── sun.js               # solar position, day/night
+│       └── land-dots.js         # generated land dot grid for the map
 ├── data/
 │   ├── snapshots/1272.json      # January 2027 snapshot (committed, offline demo)
 │   └── cache/                   # live cache (git-ignored)
@@ -254,6 +266,7 @@ build-with-ai-basics/            # repository root
 │   ├── time.test.mjs
 │   ├── notes.test.mjs
 │   ├── schools.test.mjs
+│   ├── sun.test.mjs
 │   └── verdict.test.mjs         # PRD acceptance cases on snapshot fixtures
 ├── package.json                 # scripts: start, test, snapshot; no dependencies
 ├── README.md                    # what it is, how to run, data source and limits
