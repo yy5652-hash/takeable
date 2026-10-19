@@ -2,6 +2,8 @@
 
 Which NYU courses can you actually take from where you'll be?
 
+**Demo video (2:09):** https://youtu.be/2Od-VNBFFWQ
+
 Takeable reads NYU's public class search and gives every online or blended undergraduate section one of three verdicts:
 
 - **✓ Takeable**
